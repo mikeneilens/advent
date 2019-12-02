@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MainTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2019-12-02T19:47:43" hostname="MacBook-Pro-2" time="0.042">
+<testsuite name="MainTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2019-12-02T20:22:45" hostname="MacBook-Pro-2" time="0.076">
   <properties/>
-  <testcase name="sample data 2 returns data in the exmaple()" classname="MainTest" time="0.032"/>
-  <testcase name="sample data 3 returns data in the exmaple()" classname="MainTest" time="0.0"/>
+  <testcase name="sample data 2 returns data in the exmaple()" classname="MainTest" time="0.031"/>
+  <testcase name="sample data 3 returns data in the exmaple()" classname="MainTest" time="0.001"/>
   <testcase name="sample data 4 returns data in the exmaple()" classname="MainTest" time="0.001"/>
-  <testcase name="sample data 5 returns data in the exmaple()" classname="MainTest" time="0.0"/>
-  <testcase name="Part one()" classname="MainTest" time="0.004"/>
+  <testcase name="sample data 5 returns data in the exmaple()" classname="MainTest" time="0.001"/>
+  <testcase name="Part one()" classname="MainTest" time="0.003"/>
+  <testcase name="Part two()" classname="MainTest" time="0.034"/>
   <testcase name="sample data 1 returns data in the exmaple()" classname="MainTest" time="0.001"/>
   <system-out><![CDATA[Part one: 4090689
+Part two: 7733
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
