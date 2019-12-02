@@ -34,7 +34,7 @@ class MainTest {
     @Test
     fun `Using advent data`() {
         val fuelNeeded = calculateAllFuel(testData)
-        println(fuelNeeded)
+        println("Part one: $fuelNeeded")
     }
 
     @Test
@@ -55,7 +55,7 @@ class MainTest {
     @Test
     fun `Using advent data for part two`() {
         val fuelNeeded = calculateAllFuelPlusFuel(testData)
-        println(fuelNeeded)
+        println("Part two: $fuelNeeded")
     }
 
 
