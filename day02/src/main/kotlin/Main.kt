@@ -14,10 +14,10 @@ fun process(sampleData: List<Int>): List<Int> {
 fun findInputsThatCreateAValue(sampleData:List<Int>, valueToFind:Int):Pair<Int,Int> {
     for (parameter1 in 0..99) {
         for (parameter2 in 0..99) {
-            val result = sampleData.toMutableList()
-            result[1] = parameter1
-            result[2] = parameter2
-            val resultOfProcess = process(result)
+            val freshData = sampleData.toMutableList()
+            freshData[1] = parameter1
+            freshData[2] = parameter2
+            val resultOfProcess = process(freshData)
             if (resultOfProcess[0] == valueToFind) return Pair(parameter1,parameter2)
         }
     }
