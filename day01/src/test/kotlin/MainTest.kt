@@ -36,4 +36,27 @@ class MainTest {
         val fuelNeeded = calculateAllFuel(testData)
         println(fuelNeeded)
     }
+
+    @Test
+    fun `When adding fuel for fuel A module of mass 14 requires 2 fuel`() {
+        val fuelNeeded = calculateFuelplusFuel(14)
+        assertEquals(2, fuelNeeded)
+    }
+    @Test
+    fun `When adding fuel for fuel the fuel required for a module of mass 1969 is  966`() {
+        val fuelNeeded = calculateFuelplusFuel(1969)
+        assertEquals(966, fuelNeeded)
+    }
+    @Test
+    fun `When adding fuel for fuel the fuel required for a module of mass 100756 is  50346`() {
+        val fuelNeeded = calculateFuelplusFuel(100756)
+        assertEquals(50346, fuelNeeded)
+    }
+    @Test
+    fun `Using advent data for part two`() {
+        val fuelNeeded = calculateAllFuelPlusFuel(testData)
+        println(fuelNeeded)
+    }
+
+
 }
