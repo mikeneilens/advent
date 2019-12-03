@@ -3,10 +3,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class MainTest {
-    @BeforeEach
-    fun resetMap() {
-        WireMap.reset()
-    }
+
     @Test
     fun `example1 distance is 6`(){
         val wire1 = "R8,U5,L5,D3".split(",")
