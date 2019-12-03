@@ -1,14 +1,13 @@
 import kotlin.math.absoluteValue
 
 data class Position(val x:Int, val y:Int) {
-    val manhattenDistance = x.absoluteValue + y.absoluteValue
+    val manhattanDistance = x.absoluteValue + y.absoluteValue
     operator fun plus(other:Position) = Position(this.x + other.x, this.y + other.y)
 }
 
 data class VisitRecord(val wireSteps:MutableList<Int>)
 
 object WireMap {
-    private val wireValue = listOf(1,2)
     var closestIntersectionPosition = Position(Int.MAX_VALUE/2, Int.MAX_VALUE/2)
     var leastStepsPosition = Position(Int.MAX_VALUE/2, Int.MAX_VALUE/2)
     private var wirePosition = mutableListOf(Position(0,0),Position(0,0))
@@ -18,7 +17,7 @@ object WireMap {
     fun reset() {
         closestIntersectionPosition = Position(Int.MAX_VALUE/2, Int.MAX_VALUE/2)
         wirePosition = mutableListOf(Position(0,0),Position(0,0))
-        wiresAtPosition = mutableMapOf<Position,VisitRecord>()
+        wiresAtPosition = mutableMapOf()
         wireStepsTaken = mutableListOf(0,0)
         leastStepsPosition = Position(Int.MAX_VALUE/2, Int.MAX_VALUE/2)
     }
@@ -42,7 +41,7 @@ object WireMap {
             wiresAtPosition[wirePosition[wireNo]] = contentsOfLocation
 
             if (!contentsOfLocation.wireSteps.contains(0)  ) {
-                if (wirePosition[wireNo].manhattenDistance < closestIntersectionPosition.manhattenDistance ) {
+                if (wirePosition[wireNo].manhattanDistance < closestIntersectionPosition.manhattanDistance ) {
                     closestIntersectionPosition = wirePosition[wireNo]
                 }
                 val stepsToLeastStepsLocation = wiresAtPosition[leastStepsPosition] ?: VisitRecord(mutableListOf(Int.MAX_VALUE/2,Int.MAX_VALUE/2))
@@ -54,13 +53,13 @@ object WireMap {
     }
 }
 
-fun calcualteClosestIntersection(wireList1: List<String>, wireList2: List<String>): Int {
+fun calculateClosestIntersection(wireList1: List<String>, wireList2: List<String>): Int {
     wireList1.forEach { WireMap.move(it,0) }
     wireList2.forEach { WireMap.move(it,1) }
-    return WireMap.closestIntersectionPosition.manhattenDistance
+    return WireMap.closestIntersectionPosition.manhattanDistance
 }
 
-fun calcualteStepsToClosestIntersection(wireList1: List<String>, wireList2: List<String>): Int {
+fun calculateStepsToClosestIntersection(wireList1: List<String>, wireList2: List<String>): Int {
     wireList1.forEach { WireMap.move(it,0) }
     wireList2.forEach { WireMap.move(it,1) }
 
