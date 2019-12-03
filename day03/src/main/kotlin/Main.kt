@@ -1,35 +1,30 @@
 import kotlin.math.absoluteValue
 
 data class Position(val x:Int, val y:Int) {
+    val manhattenDistance = x.absoluteValue + y.absoluteValue
     operator fun plus(other:Position) = Position(this.x + other.x, this.y + other.y)
 }
 
+data class VisitRecord(val wireSteps:MutableList<Int>)
+
 object WireMap {
-    private const val wire1Value = 1
-    private const val wire2Value = 2
-    private val intersectionValue = wire1Value.or(wire2Value)
-    var closestIntersection = Int.MAX_VALUE
-    private var wire1Position = Position(0,0)
-    private var wire2Position = Position(0,0)
-    private var wiresAtPosition = mutableMapOf<Position,Int>()
+    private val wireValue = listOf(1,2)
+    var closestIntersectionPosition = Position(Int.MAX_VALUE/2, Int.MAX_VALUE/2)
+    var leastStepsPosition = Position(Int.MAX_VALUE/2, Int.MAX_VALUE/2)
+    private var wirePosition = mutableListOf(Position(0,0),Position(0,0))
+    var wiresAtPosition = mutableMapOf<Position,VisitRecord>()
+    private var wireStepsTaken = mutableListOf(0,0)
 
     fun reset() {
-        closestIntersection = Int.MAX_VALUE
-        wire1Position = Position(0,0)
-        wire2Position = Position(0,0)
-        wiresAtPosition = mutableMapOf<Position,Int>()
+        closestIntersectionPosition = Position(Int.MAX_VALUE/2, Int.MAX_VALUE/2)
+        wirePosition = mutableListOf(Position(0,0),Position(0,0))
+        wiresAtPosition = mutableMapOf<Position,VisitRecord>()
+        wireStepsTaken = mutableListOf(0,0)
+        leastStepsPosition = Position(Int.MAX_VALUE/2, Int.MAX_VALUE/2)
     }
 
-    fun moveWire1(instruction:String) {
-        wire1Position = move(instruction, wire1Position, wire1Value)
-    }
+    fun move(instruction:String, wireNo:Int) {
 
-    fun moveWire2(instruction:String) {
-        wire2Position = move(instruction, wire2Position, wire2Value)
-    }
-
-    private fun move(instruction:String, startPosition:Position, wireValue:Int):Position {
-        var resultingPosition = startPosition
         val move = when (instruction.first()) {
             'L' -> Position(-1,+0)
             'R' -> Position(+1,+0)
@@ -39,21 +34,36 @@ object WireMap {
         }
         val steps = instruction.drop(1).toInt()
         repeat(steps) {
-            resultingPosition += move
-            val contentsOfLocation = wiresAtPosition[resultingPosition] ?: 0
-            wiresAtPosition[resultingPosition] = contentsOfLocation.or(wireValue)
-            if (contentsOfLocation.or(wireValue) == intersectionValue) {
-                if ((resultingPosition.x.absoluteValue + resultingPosition.y.absoluteValue) < closestIntersection ) {
-                    closestIntersection = (resultingPosition.x.absoluteValue + resultingPosition.y.absoluteValue)
+            wirePosition[wireNo] += move
+            wireStepsTaken[wireNo] += 1
+
+            val contentsOfLocation = wiresAtPosition[wirePosition[wireNo]] ?: VisitRecord(mutableListOf(0,0))
+            if (contentsOfLocation.wireSteps[wireNo] == 0) contentsOfLocation.wireSteps[wireNo] = wireStepsTaken[wireNo]
+            wiresAtPosition[wirePosition[wireNo]] = contentsOfLocation
+
+            if (!contentsOfLocation.wireSteps.contains(0)  ) {
+                if (wirePosition[wireNo].manhattenDistance < closestIntersectionPosition.manhattenDistance ) {
+                    closestIntersectionPosition = wirePosition[wireNo]
+                }
+                val stepsToLeastStepsLocation = wiresAtPosition[leastStepsPosition] ?: VisitRecord(mutableListOf(Int.MAX_VALUE/2,Int.MAX_VALUE/2))
+                if (contentsOfLocation.wireSteps.sum() < stepsToLeastStepsLocation.wireSteps.sum()) {
+                    leastStepsPosition = wirePosition[wireNo]
                 }
             }
         }
-        return resultingPosition
     }
 }
 
 fun calcualteClosestIntersection(wireList1: List<String>, wireList2: List<String>): Int {
-    wireList1.forEach { WireMap.moveWire1(it) }
-    wireList2.forEach { WireMap.moveWire2(it) }
-    return WireMap.closestIntersection
+    wireList1.forEach { WireMap.move(it,0) }
+    wireList2.forEach { WireMap.move(it,1) }
+    return WireMap.closestIntersectionPosition.manhattenDistance
+}
+
+fun calcualteStepsToClosestIntersection(wireList1: List<String>, wireList2: List<String>): Int {
+    wireList1.forEach { WireMap.move(it,0) }
+    wireList2.forEach { WireMap.move(it,1) }
+
+    val contentsOfLocation = WireMap.wiresAtPosition[WireMap.leastStepsPosition] ?: VisitRecord(mutableListOf(0,0))
+    return contentsOfLocation.wireSteps.sum()
 }
