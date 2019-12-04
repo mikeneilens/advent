@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="MainTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2019-12-03T14:40:53" hostname="mike-ThinkPad-L380" time="0.487">
+  <properties/>
+  <testcase name="example2 distance is 159()" classname="MainTest" time="0.05"/>
+  <testcase name="example2 distance is 610()" classname="MainTest" time="0.003"/>
+  <testcase name="example1 distance is 6()" classname="MainTest" time="0.001"/>
+  <testcase name="example3 distance is 135()" classname="MainTest" time="0.002"/>
+  <testcase name="example3 distance is 410()" classname="MainTest" time="0.003"/>
+  <testcase name="example1 steps to location is 30()" classname="MainTest" time="0.001"/>
+  <testcase name="Part one()" classname="MainTest" time="0.154"/>
+  <testcase name="Part two()" classname="MainTest" time="0.264"/>
+  <system-out><![CDATA[Part one: 273
+Part two: 15622
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
