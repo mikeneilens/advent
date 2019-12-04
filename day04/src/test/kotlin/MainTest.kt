@@ -41,6 +41,12 @@ class MainTest {
     }
 
     @Test
+    fun `112113 meets the criteria`() {
+        val code = 112113.toString().toList().map{it.toInt()}
+        assertTrue(code.containsPairNotInGroup())
+    }
+
+    @Test
     fun `Part two`() {
         val result = validCodesInListPartTwo((372304..847060).toList())
         println("Part two: ${result.size} $result")
