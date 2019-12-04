@@ -37,17 +37,13 @@ fun List<Int>.isAscending() = this.fold(Pair(-1,true)){(previousDigit, result), 
 }.second
 
 fun List<Int>.containsPairNotInGroup():Boolean {
-    var ndx = 0
-    var listOfGroups=mutableListOf<List<Int>>()
-    while (ndx < this.size) {
-        val digit = this[ndx]
-        var group = mutableListOf(digit)
-        ndx +=1
-        while ((ndx < this.size) && (this[ndx]== digit )) {
-            group.add(digit)
-            ndx +=1
+    val firstListOfDigits:MutableList<Int> = mutableListOf(this.first())
+    return  this.drop(1).fold(listOf(firstListOfDigits)){ acc, digit ->
+        if (digit == acc.last().last()) {
+            val lastListInAcc = acc.last()
+            lastListInAcc.add(digit)
+            acc
         }
-        listOfGroups.add(group)
-    }
-    return listOfGroups.map{it.size}.filter{it == 2}.isNotEmpty()
+        else acc + listOf(mutableListOf(digit))
+    }.map{it.size}.filter{it == 2}.isNotEmpty()
 }
