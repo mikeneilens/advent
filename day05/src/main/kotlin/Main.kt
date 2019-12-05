@@ -44,13 +44,13 @@ class Program (val instructions:MutableList<Int>) {
     var output = 0
 
     fun performNextOperation() {
+        val howToProceed = opCode.howToProceed
         when (opCode.operation) {
             1 -> add()
             2 -> multiply()
             3 -> readInput()
             4 -> writeToOutput()
         }
-        val howToProceed = opCode.howToProceed
         if (howToProceed is HowToProceed.Advance) {
             position = position + howToProceed.steps
         }
