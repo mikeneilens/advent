@@ -96,4 +96,52 @@ class MainTest {
         val result = processDay5(sampleData)
         println("Day 5 part one: ${result.output}" )
     }
+
+    @Test
+    fun `3,9,8,9,10,9,4,9,99,-1,8 returns 1 if input is equal to 8`() {
+        val result = processDay5(listOf(3,9,8,9,10,9,4,9,99,-1,8),8)
+        assertEquals(1,result.output)
+
+        val result2 = processDay5(listOf(3,9,8,9,10,9,4,9,99,-1,8),7)
+        assertEquals(0,result2.output)
+    }
+    @Test
+    fun `3,9,7,9,10,9,4,9,99,-1,8 return 1 if input is less than 8`() {
+        val result = processDay5(listOf(3,9,7,9,10,9,4,9,99,-1,8),7)
+        assertEquals(1,result.output)
+
+        val result2 = processDay5(listOf(3,9,7,9,10,9,4,9,99,-1,8),8)
+        assertEquals(0,result2.output)
+    }
+    @Test
+    fun `3,3,1108,-1,8,3,4,3,99 returns 1 if input is equal to 8`() {
+        val result = processDay5(listOf(3,3,1108,-1,8,3,4,3,99),8)
+        assertEquals(1,result.output)
+
+        val result2 = processDay5(listOf(3,3,1108,-1,8,3,4,3,99),7)
+        assertEquals(0,result2.output)
+    }
+    @Test
+    fun `3,3,1107,-1,8,3,4,3,99 return 1 if input is less than 8`() {
+        val result = processDay5(listOf(3,3,1107,-1,8,3,4,3,99),7)
+        assertEquals(1,result.output)
+
+        val result2 = processDay5(listOf(3,3,1107,-1,8,3,4,3,99),8)
+        assertEquals(0,result2.output)
+    }
+    @Test
+    fun `3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9 retun 0 if output is 0`() {
+        val result = processDay5(listOf(3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9),0)
+        assertEquals(0,result.output)
+        val result2 = processDay5(listOf(3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9),1)
+        assertEquals(1,result2.output)
+    }
+    @Test
+    fun `3,3,1105,-1,9,1101,0,0,12,4,12,99,1 retun 0 if output is 0`() {
+        val result = processDay5(listOf(3,3,1105,-1,9,1101,0,0,12,4,12,99,1),0)
+        assertEquals(0,result.output)
+        val result2 = processDay5(listOf(3,3,1105,-1,9,1101,0,0,12,4,12,99,1),1)
+        assertEquals(1,result2.output)
+    }
+
 }
