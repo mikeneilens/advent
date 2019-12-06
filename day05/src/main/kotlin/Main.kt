@@ -1,10 +1,4 @@
 
-sealed class HowToProceed {
-    object Stop:HowToProceed()
-    class Advance(val steps:Int):HowToProceed()
-    class Jump(val position:Int):HowToProceed()
-}
-
 enum class ParameterMode { PositionMode, ImmediateMode }
 fun getParamterMode(value:Char) = when(value) {
     '0' -> ParameterMode.PositionMode
@@ -13,13 +7,6 @@ fun getParamterMode(value:Char) = when(value) {
 }
 
 class Opcode (val code:Int) {
-    val howToProceed  = when (operation) {
-        1,2,7,8 -> HowToProceed.Advance(4)
-        5,6 -> HowToProceed.Advance(3)
-        3,4 -> HowToProceed.Advance(2)
-        99 -> HowToProceed.Stop
-        else -> HowToProceed.Stop
-    }
     val codeAsList:List<Char> get() {
         val list = code.toString().toList()
         return when (list.size) {
@@ -36,86 +23,72 @@ class Opcode (val code:Int) {
     val firstParameterMode get() = getParamterMode(codeAsList[2])
     val secondParameterMode get() = getParamterMode(codeAsList[1])
     val thirdParameterMode get() = getParamterMode(codeAsList[0])
-
 }
 
 class Program (val instructions:MutableList<Int>, val input:Int = 1) {
     var position = 0
     val opCode get() = Opcode(instructions[position])
     var output = 0
+    val isFinished get() = (position >= instructions.size) || (opCode.operation == 99)
 
-    fun performNextOperation() {
-        val howToProceed = when (opCode.operation) {
-            5 -> jumpIfTrue()
-            6 -> jumpIfFalse()
-            else -> opCode.howToProceed
-        }
+    fun performNextOperation() = functions[opCode.operation]?.let{function -> function()}
 
-        when (opCode.operation) {
-            1 -> add()
-            2 -> multiply()
-            3 -> readInput()
-            4 -> writeToOutput()
-            7 -> lessThan()
-            8 -> equals()
-        }
-
-        when (howToProceed) {
-            is HowToProceed.Advance -> position = position + howToProceed.steps
-            is HowToProceed.Jump -> position = howToProceed.position
-            is HowToProceed.Stop -> position = position
-        }
-    }
-
-    fun add() {
-        val firstValue = if (opCode.firstParameterMode == ParameterMode.ImmediateMode) instructions[position + 1] else instructions[instructions[position + 1]]
-        val secondValue = if (opCode.secondParameterMode == ParameterMode.ImmediateMode) instructions[position + 2] else instructions[instructions[position + 2]]
+    val add = fun() {
+        val (firstValue, secondValue) = getParameters()
         val outputAddress = instructions[position + 3]
         instructions[outputAddress] = firstValue + secondValue
+        position += 4
     }
-    fun multiply() {
-        val firstValue = if (opCode.firstParameterMode == ParameterMode.ImmediateMode) instructions[position + 1] else instructions[instructions[position + 1]]
-        val secondValue = if (opCode.secondParameterMode == ParameterMode.ImmediateMode) instructions[position + 2] else instructions[instructions[position + 2]]
+    val multiply = fun() {
+        val (firstValue, secondValue) = getParameters()
         val outputAddress = instructions[position + 3]
         instructions[outputAddress] = firstValue * secondValue
+        position += 4
     }
-    fun readInput() {
+    val readInput = fun() {
         val outputAddress = instructions[position + 1]
         instructions[outputAddress] = input
+        position += 2
     }
-    fun writeToOutput() {
+    val writeToOutput = fun() {
         output= if (opCode.firstParameterMode == ParameterMode.ImmediateMode) instructions[position + 1] else instructions[instructions[position + 1]]
+        position += 2
     }
-    fun jumpIfTrue():HowToProceed {
-        val firstValue = if (opCode.firstParameterMode == ParameterMode.ImmediateMode) instructions[position + 1] else instructions[instructions[position + 1]]
-        val secondValue = if (opCode.secondParameterMode == ParameterMode.ImmediateMode) instructions[position + 2] else instructions[instructions[position + 2]]
-        if (firstValue != 0) return HowToProceed.Jump(secondValue)
-        else return HowToProceed.Advance(3)
+    val jumpIfTrue = fun() {
+        val (firstValue, secondValue) = getParameters()
+        if (firstValue != 0) position = secondValue else position += 3
     }
-    fun jumpIfFalse():HowToProceed {
-        val firstValue = if (opCode.firstParameterMode == ParameterMode.ImmediateMode) instructions[position + 1] else instructions[instructions[position + 1]]
-        val secondValue = if (opCode.secondParameterMode == ParameterMode.ImmediateMode) instructions[position + 2] else instructions[instructions[position + 2]]
-        if (firstValue == 0) return HowToProceed.Jump(secondValue)
-        else return HowToProceed.Advance(3)
+    val jumpIfFalse = fun() {
+        val (firstValue, secondValue) = getParameters()
+        if (firstValue == 0) position = secondValue else position += 3
     }
-    fun lessThan() {
-        val firstValue = if (opCode.firstParameterMode == ParameterMode.ImmediateMode) instructions[position + 1] else instructions[instructions[position + 1]]
-        val secondValue = if (opCode.secondParameterMode == ParameterMode.ImmediateMode) instructions[position + 2] else instructions[instructions[position + 2]]
+    val lessThan = fun() {
+        val (firstValue, secondValue) = getParameters()
         val outputAddress = instructions[position + 3]
         if (firstValue < secondValue) instructions[outputAddress] = 1 else instructions[outputAddress] = 0
+        position += 4
     }
-    fun equals() {
-        val firstValue = if (opCode.firstParameterMode == ParameterMode.ImmediateMode) instructions[position + 1] else instructions[instructions[position + 1]]
-        val secondValue = if (opCode.secondParameterMode == ParameterMode.ImmediateMode) instructions[position + 2] else instructions[instructions[position + 2]]
+    val equals = fun() {
+        val (firstValue, secondValue) = getParameters()
         val outputAddress = instructions[position + 3]
         if (firstValue == secondValue) instructions[outputAddress] = 1 else instructions[outputAddress] = 0
+        position += 4
     }
+    val functions = mapOf(1 to add, 2 to multiply, 3 to readInput,4 to writeToOutput,5 to jumpIfTrue, 6 to jumpIfFalse, 7 to lessThan, 8 to equals)
+
+    fun getParameters():Pair<Int,Int> {
+        val firstValue = getFirstParameter()
+        val secondValue = getSecondParameter()
+        return Pair(firstValue,secondValue)
+    }
+    fun getFirstParameter():Int = if (opCode.firstParameterMode == ParameterMode.ImmediateMode) instructions[position + 1] else instructions[instructions[position + 1]]
+    fun getSecondParameter():Int = if (opCode.secondParameterMode == ParameterMode.ImmediateMode) instructions[position + 2] else instructions[instructions[position + 2]]
 
 }
 
 fun process(sampleData: List<Int>): List<Int> {
     val program = Program(sampleData.toMutableList())
-    while ((program.position < program.instructions.size) && (program.opCode.howToProceed != HowToProceed.Stop)) {
+    while (!program.isFinished) {
         program.performNextOperation()
     }
     return program.instructions
@@ -136,7 +109,7 @@ fun findInputsThatCreateAValue(sampleData:List<Int>, valueToFind:Int):Pair<Int,I
 
 fun processDay5(sampleData: List<Int>, input:Int = 1): Program {
     val program = Program(sampleData.toMutableList(), input)
-    while ((program.position < program.instructions.size) && (program.opCode.howToProceed != HowToProceed.Stop)) {
+    while (!program.isFinished) {
         program.performNextOperation()
     }
     return program
