@@ -22,7 +22,6 @@ class Opcode (val code:Int) {
     val operation:Int  get() = (codeAsList[3].toString() + codeAsList[4].toString()).toInt()
     val firstParameterMode get() = getParamterMode(codeAsList[2])
     val secondParameterMode get() = getParamterMode(codeAsList[1])
-    val thirdParameterMode get() = getParamterMode(codeAsList[0])
 }
 
 class Program (val instructions:MutableList<Int>, val input:Int = 1) {
@@ -76,11 +75,7 @@ class Program (val instructions:MutableList<Int>, val input:Int = 1) {
     }
     val functions = mapOf(1 to add, 2 to multiply, 3 to readInput,4 to writeToOutput,5 to jumpIfTrue, 6 to jumpIfFalse, 7 to lessThan, 8 to equals)
 
-    fun getParameters():Pair<Int,Int> {
-        val firstValue = getFirstParameter()
-        val secondValue = getSecondParameter()
-        return Pair(firstValue,secondValue)
-    }
+    fun getParameters():Pair<Int,Int> = Pair(getFirstParameter(),getSecondParameter())
     fun getFirstParameter():Int = if (opCode.firstParameterMode == ParameterMode.ImmediateMode) instructions[position + 1] else instructions[instructions[position + 1]]
     fun getSecondParameter():Int = if (opCode.secondParameterMode == ParameterMode.ImmediateMode) instructions[position + 2] else instructions[instructions[position + 2]]
 

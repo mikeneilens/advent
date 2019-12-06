@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="MainTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2019-12-03T08:31:54" hostname="mike-ThinkPad-L380" time="0.129">
+  <properties/>
+  <testcase name="sample data 2 returns data in the exmaple()" classname="MainTest" time="0.071"/>
+  <testcase name="sample data 3 returns data in the exmaple()" classname="MainTest" time="0.001"/>
+  <testcase name="sample data 4 returns data in the exmaple()" classname="MainTest" time="0.001"/>
+  <testcase name="sample data 5 returns data in the exmaple()" classname="MainTest" time="0.001"/>
+  <testcase name="Part one()" classname="MainTest" time="0.004"/>
+  <testcase name="Part two()" classname="MainTest" time="0.041"/>
+  <testcase name="sample data 1 returns data in the exmaple()" classname="MainTest" time="0.002"/>
+  <system-out><![CDATA[Part one: 4090689
+Part two: 7733
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
