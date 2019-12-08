@@ -49,6 +49,7 @@ class MainTest {
         val height = 6
         val layers = createLayers(sampleData, width,height)
         val result = findSumOfOneAndTwoDigitsOnLayerWithFewestZeroDigits(layers)
+        assertEquals(1862, result)
         println("Result for Day 08 part one $result")
 
     }
@@ -66,7 +67,7 @@ class MainTest {
     @Test
     fun `with a pixel list of 2210 the top pixel is 1`() {
         val pixelList = "2210".toList()
-        val topLayer:Char = calcTopLayer(pixelList)
+        val topLayer:Char = getTopLayer(pixelList)
         assertEquals('1',topLayer)
     }
     @Test
