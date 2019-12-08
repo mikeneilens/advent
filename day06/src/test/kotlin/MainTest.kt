@@ -41,7 +41,7 @@ class MainTest {
     fun `Day 06 part one`() {
         val orbits = testData.split(",")
         val totalOrbits = countOrbits(orbits)
-        println(totalOrbits)
+        println("day 06 part one: $totalOrbits")
     }
     @Test
     fun `Santas orbit takes 4 steps to reach`() {
@@ -65,7 +65,7 @@ class MainTest {
     fun `Day 6 part two`() {
         val orbits = testData.split(",")
         val steps = calcStepsToSantasOrbit(orbits)
-       print("day 6 part two $steps")
+       print("day 6 part two: $steps")
     }
 
 }
