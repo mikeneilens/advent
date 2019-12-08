@@ -31,6 +31,8 @@ class Program (val instructions:MutableList<Int>, val input:MutableList<Int> = m
     var output = mutableListOf<Int>()
     var outputPosition = -1
     val isFinished get() = (position >= instructions.size) || (opCode.operation == 99)
+    val isWaitingForInput get() = if ((functions[opCode.operation] == readInput) && (inputPosition >= input.size)) true else false
+
 
     fun performNextOperation() = functions[opCode.operation]?.let{function -> function()}
 
@@ -83,24 +85,15 @@ class Program (val instructions:MutableList<Int>, val input:MutableList<Int> = m
     fun getFirstParameter():Int = if (opCode.firstParameterMode == ParameterMode.ImmediateMode) instructions[position + 1] else instructions[instructions[position + 1]]
     fun getSecondParameter():Int = if (opCode.secondParameterMode == ParameterMode.ImmediateMode) instructions[position + 2] else instructions[instructions[position + 2]]
 
-    fun waitingForInput() = if ((functions[opCode.operation] == readInput) && (inputPosition >= input.size)) true else false
-
     fun execute() {
-        while ((!isFinished) && (!waitingForInput() ) ) {
+        while ((!isFinished) && (!isWaitingForInput ) ) {
             performNextOperation()
         }
     }
 
-
 }
 
-fun process(sampleData: List<Int>): List<Int> {
-    val program = Program(sampleData.toMutableList())
-    while (!program.isFinished) {
-        program.performNextOperation()
-    }
-    return program.instructions
-}
+fun process(sampleData: List<Int>): List<Int> = processDay5(sampleData).instructions
 
 fun findInputsThatCreateAValue(sampleData:List<Int>, valueToFind:Int):Pair<Int,Int> {
     for (parameter1 in 0..99) {
@@ -115,12 +108,7 @@ fun findInputsThatCreateAValue(sampleData:List<Int>, valueToFind:Int):Pair<Int,I
     return Pair(0,0)
 }
 
-fun processDay5(sampleData: List<Int>, input:List<Int> = listOf(1)): Program {
-    val program = Program(sampleData.toMutableList(), input.toMutableList())
-    program.execute()
-    return program
-}
-
+fun processDay5(sampleData: List<Int>, input:List<Int> = listOf(1)): Program = Program(sampleData.toMutableList(), input.toMutableList()).apply{execute()}
 
 fun calMaxThrusterSignal(sampleData:List<Int>, phaseSettings:List<Int>):Int{
     var outputFromPreviousAmp = 0
