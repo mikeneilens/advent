@@ -24,8 +24,9 @@ class Opcode (val code:Int) {
     val secondParameterMode get() = getParamterMode(codeAsList[1])
 }
 
-class Program (val instructions:MutableList<Int>, val input:Int = 1) {
+class Program (val instructions:MutableList<Int>, val input:List<Int> = listOf(1)) {
     var position = 0
+    var inputPosition = 0
     val opCode get() = Opcode(instructions[position])
     var output = 0
     val isFinished get() = (position >= instructions.size) || (opCode.operation == 99)
@@ -46,8 +47,9 @@ class Program (val instructions:MutableList<Int>, val input:Int = 1) {
     }
     val readInput = fun() {
         val outputAddress = instructions[position + 1]
-        instructions[outputAddress] = input
+        instructions[outputAddress] = input[inputPosition]
         position += 2
+        inputPosition += 1
     }
     val writeToOutput = fun() {
         output= if (opCode.firstParameterMode == ParameterMode.ImmediateMode) instructions[position + 1] else instructions[instructions[position + 1]]
@@ -102,7 +104,7 @@ fun findInputsThatCreateAValue(sampleData:List<Int>, valueToFind:Int):Pair<Int,I
     return Pair(0,0)
 }
 
-fun processDay5(sampleData: List<Int>, input:Int = 1): Program {
+fun processDay5(sampleData: List<Int>, input:List<Int> = listOf(1)): Program {
     val program = Program(sampleData.toMutableList(), input)
     while (!program.isFinished) {
         program.performNextOperation()
