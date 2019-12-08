@@ -1,33 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MainTest" tests="25" skipped="0" failures="0" errors="0" timestamp="2019-12-08T13:22:23" hostname="MacBook-Pro-2" time="0.354">
+<testsuite name="MainTest" tests="28" skipped="0" failures="0" errors="0" timestamp="2019-12-08T16:25:28" hostname="MacBook-Pro-2" time="0.455">
   <properties/>
-  <testcase name="3,3,1108,-1,8,3,4,3,99 returns 1 if input is equal to 8()" classname="MainTest" time="0.041"/>
+  <testcase name="3,3,1108,-1,8,3,4,3,99 returns 1 if input is equal to 8()" classname="MainTest" time="0.049"/>
   <testcase name="Output 999 if the input is below 8, output 1000 if the input is 8, output 1001 if the input is above 8()" classname="MainTest" time="0.001"/>
   <testcase name="Day 02 Part one()" classname="MainTest" time="0.003"/>
   <testcase name="1101,100,-1,4,0 stores result of adding 100 to -1 in position 4()" classname="MainTest" time="0.001"/>
-  <testcase name="sample data 2 returns data in the exmaple()" classname="MainTest" time="0.0"/>
-  <testcase name="3,0,4,0,99 outputs what is input()" classname="MainTest" time="0.0"/>
-  <testcase name="1002,4,3,4,33 gives 1002,4,3,4,99()" classname="MainTest" time="0.001"/>
-  <testcase name="sample data 3 returns data in the exmaple()" classname="MainTest" time="0.001"/>
+  <testcase name="sample data 2 returns data in the exmaple()" classname="MainTest" time="0.001"/>
+  <testcase name="3,0,4,0,99 outputs what is input()" classname="MainTest" time="0.001"/>
+  <testcase name="1002,4,3,4,33 gives 1002,4,3,4,99()" classname="MainTest" time="0.0"/>
+  <testcase name="sample data 3 returns data in the exmaple()" classname="MainTest" time="0.0"/>
   <testcase name="3,9,8,9,10,9,4,9,99,-1,8 returns 1 if input is equal to 8()" classname="MainTest" time="0.0"/>
-  <testcase name="Day 7 part one()" classname="MainTest" time="0.026"/>
+  <testcase name="Day 7 part one()" classname="MainTest" time="0.039"/>
+  <testcase name="Day 7 part two()" classname="MainTest" time="0.074"/>
   <testcase name="sample data 4 returns data in the exmaple()" classname="MainTest" time="0.0"/>
   <testcase name="Day 7 sampe code 1()" classname="MainTest" time="0.0"/>
   <testcase name="Day 7 sampe code 2()" classname="MainTest" time="0.0"/>
   <testcase name="Day 7 sampe code 3()" classname="MainTest" time="0.001"/>
   <testcase name="Day 5 part one()" classname="MainTest" time="0.001"/>
-  <testcase name="Day 5 part two()" classname="MainTest" time="0.0"/>
-  <testcase name="opcode 2 is an op of 2()" classname="MainTest" time="0.0"/>
+  <testcase name="Day 5 part two()" classname="MainTest" time="0.001"/>
+  <testcase name="opcode 2 is an op of 2()" classname="MainTest" time="0.001"/>
   <testcase name="3,9,7,9,10,9,4,9,99,-1,8 return 1 if input is less than 8()" classname="MainTest" time="0.0"/>
-  <testcase name="sample data 5 returns data in the exmaple()" classname="MainTest" time="0.001"/>
-  <testcase name="3,3,1107,-1,8,3,4,3,99 return 1 if input is less than 8()" classname="MainTest" time="0.001"/>
+  <testcase name="sample data 5 returns data in the exmaple()" classname="MainTest" time="0.0"/>
+  <testcase name="3,3,1107,-1,8,3,4,3,99 return 1 if input is less than 8()" classname="MainTest" time="0.0"/>
   <testcase name="3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9 retun 0 if output is 0()" classname="MainTest" time="0.0"/>
   <testcase name="opcode 1002 is an op of 2()" classname="MainTest" time="0.0"/>
-  <testcase name="Part two()" classname="MainTest" time="0.262"/>
-  <testcase name="3,3,1105,-1,9,1101,0,0,12,4,12,99,1 retun 0 if output is 0()" classname="MainTest" time="0.0"/>
+  <testcase name="Part two()" classname="MainTest" time="0.26"/>
+  <testcase name="Day 7 part two sampe code 1()" classname="MainTest" time="0.001"/>
+  <testcase name="Day 7 part two sampe code 2()" classname="MainTest" time="0.002"/>
+  <testcase name="3,3,1105,-1,9,1101,0,0,12,4,12,99,1 retun 0 if output is 0()" classname="MainTest" time="0.001"/>
   <testcase name="sample data 1 returns data in the exmaple()" classname="MainTest" time="0.0"/>
   <system-out><![CDATA[Part one: 4090689
 day07 part one 844468
+Day 7 part two: 4215746
 Day 5 part one: 16348437
 Day 5 part two: 6959377
 Day 02 Part two: 7733

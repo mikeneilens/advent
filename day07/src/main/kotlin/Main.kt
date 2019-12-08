@@ -24,11 +24,12 @@ class Opcode (val code:Int) {
     val secondParameterMode get() = getParamterMode(codeAsList[1])
 }
 
-class Program (val instructions:MutableList<Int>, val input:List<Int> = listOf(1)) {
+class Program (val instructions:MutableList<Int>, val input:MutableList<Int> = mutableListOf(1)) {
     var position = 0
     var inputPosition = 0
     val opCode get() = Opcode(instructions[position])
-    var output = 0
+    var output = mutableListOf<Int>()
+    var outputPosition = -1
     val isFinished get() = (position >= instructions.size) || (opCode.operation == 99)
 
     fun performNextOperation() = functions[opCode.operation]?.let{function -> function()}
@@ -52,7 +53,8 @@ class Program (val instructions:MutableList<Int>, val input:List<Int> = listOf(1
         inputPosition += 1
     }
     val writeToOutput = fun() {
-        output= if (opCode.firstParameterMode == ParameterMode.ImmediateMode) instructions[position + 1] else instructions[instructions[position + 1]]
+        outputPosition += 1
+        output.add( if (opCode.firstParameterMode == ParameterMode.ImmediateMode) instructions[position + 1] else instructions[instructions[position + 1]])
         position += 2
     }
     val jumpIfTrue = fun() {
@@ -81,6 +83,15 @@ class Program (val instructions:MutableList<Int>, val input:List<Int> = listOf(1
     fun getFirstParameter():Int = if (opCode.firstParameterMode == ParameterMode.ImmediateMode) instructions[position + 1] else instructions[instructions[position + 1]]
     fun getSecondParameter():Int = if (opCode.secondParameterMode == ParameterMode.ImmediateMode) instructions[position + 2] else instructions[instructions[position + 2]]
 
+    fun waitingForInput() = if ((functions[opCode.operation] == readInput) && (inputPosition >= input.size)) true else false
+
+    fun execute() {
+        while ((!isFinished) && (!waitingForInput() ) ) {
+            performNextOperation()
+        }
+    }
+
+
 }
 
 fun process(sampleData: List<Int>): List<Int> {
@@ -105,33 +116,18 @@ fun findInputsThatCreateAValue(sampleData:List<Int>, valueToFind:Int):Pair<Int,I
 }
 
 fun processDay5(sampleData: List<Int>, input:List<Int> = listOf(1)): Program {
-    val program = Program(sampleData.toMutableList(), input)
-    while (!program.isFinished) {
-        program.performNextOperation()
-    }
+    val program = Program(sampleData.toMutableList(), input.toMutableList())
+    program.execute()
     return program
 }
 
-fun calMaxThrusterSignal(sampleData:List<Int>, phaseSettings:List<Int>):Int{
 
+fun calMaxThrusterSignal(sampleData:List<Int>, phaseSettings:List<Int>):Int{
     var outputFromPreviousAmp = 0
     phaseSettings.forEach {phaseSetting ->
-          outputFromPreviousAmp = processDay5(sampleData, listOf(phaseSetting,outputFromPreviousAmp)).output
+          outputFromPreviousAmp = processDay5(sampleData, listOf(phaseSetting,outputFromPreviousAmp)).output.last()
     }
     return outputFromPreviousAmp
-
-    val ampAPhaseSetting = phaseSettings[0]
-    val ampBPhaseSetting = phaseSettings[1]
-    val ampCPhaseSetting = phaseSettings[2]
-    val ampDPhaseSetting = phaseSettings[3]
-    val ampEPhaseSetting = phaseSettings[4]
-
-    val resultForAmpA = processDay5(sampleData, listOf(ampAPhaseSetting,0)).output
-    val resultForAmpB = processDay5(sampleData, listOf(ampBPhaseSetting,resultForAmpA)).output
-    val resultForAmpC = processDay5(sampleData, listOf(ampCPhaseSetting,resultForAmpB)).output
-    val resultForAmpD = processDay5(sampleData, listOf(ampDPhaseSetting,resultForAmpC)).output
-    val resultForAmpE = processDay5(sampleData, listOf(ampEPhaseSetting,resultForAmpD)).output
-    return resultForAmpE
 }
 
 fun calcMaxOutput(sampleData:List<Int>, phaseSettings:List<Int>):Int {
@@ -140,15 +136,29 @@ fun calcMaxOutput(sampleData:List<Int>, phaseSettings:List<Int>):Int {
     return results.max() ?: 0
 }
 
-fun <S> permute(list:List <S>):List<List<S>>{
-    if(list.size==1) return listOf(list)
-    val perms=mutableListOf<List <S>>()
-    val sub=list[0]
-    for(perm in permute(list.drop(1)))
-        for (i in 0..perm.size){
-            val newPerm=perm.toMutableList()
-            newPerm.add(i,sub)
-            perms.add(newPerm)
+fun calcMaxThrusterSignalUsingFeedback(sampleData:List<Int>, phaseSettings:List<Int>):Program {
+    var lastOutput = 0
+    val programs = listOf(
+        Program(sampleData.toMutableList(),mutableListOf(phaseSettings[0])),
+        Program(sampleData.toMutableList(),mutableListOf(phaseSettings[1])),
+        Program(sampleData.toMutableList(),mutableListOf(phaseSettings[2])),
+        Program(sampleData.toMutableList(),mutableListOf(phaseSettings[3])),
+        Program(sampleData.toMutableList(),mutableListOf(phaseSettings[4]))
+    )
+    while (programs.map{it.isFinished}.contains(false)) {
+        programs.forEach{ program ->
+            if (!program.isFinished) {
+                program.input.add(lastOutput)
+                program.execute()
+                lastOutput = program.output.last()
+            }
         }
-    return perms
+    }
+    return programs[4]
+}
+
+fun calcMaxOutputUsingFeedback(sampleData:List<Int>, phaseSettings:List<Int>):Int {
+    val permuationsOfPhaseSettings = permute(phaseSettings)
+    val programs = permuationsOfPhaseSettings.map{phaseSetting -> calcMaxThrusterSignalUsingFeedback(sampleData,phaseSetting)}
+    return programs.map{it.output.last()}.max() ?: 0
 }
