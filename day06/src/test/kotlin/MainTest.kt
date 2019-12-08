@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 class MainTest {
     @BeforeEach
     fun resetMutableMap() {
-        orbitRelationship = mutableMapOf<Orbiter,Centre>()
+        orbitRelationship = mutableMapOf()
     }
     @Test
     fun `No of Orbits of C for COM)C is 1`() {

@@ -27,8 +27,8 @@ fun getTopLayer(pixelList: List<Char>): Char = pixelList.mapNotNull { if (it == 
 fun createImage(sampleData: String, width: Int, height: Int) {
     val outputChar = mapOf('1' to "#", '0' to " ")
     val layers = createLayers(sampleData,width,height)
-    (0..(height-1)).forEach() {row ->
-        (0..(width-1)).forEach() {col ->
+    (0 until height).forEach { row ->
+        (0 until width).forEach { col ->
             val pixelList = createPixelList(layers, col, row)
             print(outputChar[getTopLayer(pixelList)])
         }

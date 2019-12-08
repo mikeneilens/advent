@@ -37,12 +37,13 @@ fun calcStepsToSantasOrbit(orbits:List<String>):Int {
 }
 tailrec fun centresForAnOrbiter(orbitRelationship: MutableMap<Orbiter, Centre>, orbiter:Orbiter, centres:Sequence<Centre> = sequenceOf() ):Sequence<Centre> {
     val centre = orbitRelationship[orbiter] ?: "COM"
-    if (centre == "COM") return centres
-    else return centresForAnOrbiter(orbitRelationship, centre, centres + centre)
+    return if (centre == "COM") centres
+    else centresForAnOrbiter(orbitRelationship, centre, centres + centre)
 }
 tailrec fun stepsToAnotherCentre(orbitRelationship: MutableMap<Orbiter, Centre>,orbiter:Orbiter, otherCentre:Centre, count:Int = 0):Int {
     val centre = orbitRelationship[orbiter] ?: "COM"
     if (centre == "COM") return count
-    if (centre == otherCentre) return count
-    else return stepsToAnotherCentre(orbitRelationship, centre, otherCentre, 1 + count)
+
+    return if (centre == otherCentre) count
+    else stepsToAnotherCentre(orbitRelationship, centre, otherCentre, 1 + count)
 }
