@@ -219,4 +219,28 @@ class MainTest {
         println("Day 7 part two: $result")
         assertEquals(4215746, result)
     }
+
+    @Test
+    fun `relative base of 2000 adjusted by 19 becomes 2019 and data is retrieved from relative position -34 correctly `() {
+        val sampleData = listOf(109,19,204,-34,99)
+        val program = Program(sampleData.toMutableList()).apply{relativeBase = 2000; instructions[1985] = 12345; execute()}
+        assertEquals(2019, program.relativeBase)
+        assertEquals(12345, program.output.last())
+
+    }
+    @Test
+    fun `109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99 takes no input and produces a copy of itself as output`() {
+        val sampleData = listOf(109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99)
+        val program = Program(sampleData.toMutableList())
+        program.execute()
+        assertEquals(listOf(109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99), program.output)
+    }
+    @Test
+    fun`1102,34915192,34915192,7,4,7,99,0 should output a 16-digit number`() {
+        val sampleData = listOf(1102,34915192,34915192,7,4,7,99,0)
+        val program = Program(sampleData.toMutableList())
+        program.execute()
+        println(Int.MAX_VALUE)
+        assertEquals(34915192, program.output.last())
+    }
 }

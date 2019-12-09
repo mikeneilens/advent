@@ -1,39 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MainTest" tests="28" skipped="0" failures="0" errors="0" timestamp="2019-12-09T09:12:04" hostname="mike-ThinkPad-L380" time="2.188">
+<testsuite name="MainTest" tests="31" skipped="0" failures="1" errors="0" timestamp="2019-12-09T11:58:46" hostname="mike-ThinkPad-L380" time="0.996">
   <properties/>
-  <testcase name="3,3,1108,-1,8,3,4,3,99 returns 1 if input is equal to 8()" classname="MainTest" time="0.078"/>
-  <testcase name="Output 999 if the input is below 8, output 1000 if the input is 8, output 1001 if the input is above 8()" classname="MainTest" time="0.003"/>
-  <testcase name="Day 02 Part one()" classname="MainTest" time="0.011"/>
+  <testcase name="3,3,1108,-1,8,3,4,3,99 returns 1 if input is equal to 8()" classname="MainTest" time="0.062"/>
+  <testcase name="Output 999 if the input is below 8, output 1000 if the input is 8, output 1001 if the input is above 8()" classname="MainTest" time="0.002"/>
+  <testcase name="Day 02 Part one()" classname="MainTest" time="0.006"/>
   <testcase name="1101,100,-1,4,0 stores result of adding 100 to -1 in position 4()" classname="MainTest" time="0.003"/>
   <testcase name="sample data 2 returns data in the exmaple()" classname="MainTest" time="0.001"/>
-  <testcase name="3,0,4,0,99 outputs what is input()" classname="MainTest" time="0.002"/>
-  <testcase name="1002,4,3,4,33 gives 1002,4,3,4,99()" classname="MainTest" time="0.002"/>
+  <testcase name="3,0,4,0,99 outputs what is input()" classname="MainTest" time="0.001"/>
+  <testcase name="relative base of 2000 adjusted by 19 becomes 2019 and data is retrieved from relative position -34 correctly ()" classname="MainTest" time="0.003"/>
+  <testcase name="1002,4,3,4,33 gives 1002,4,3,4,99()" classname="MainTest" time="0.001"/>
   <testcase name="sample data 3 returns data in the exmaple()" classname="MainTest" time="0.001"/>
   <testcase name="3,9,8,9,10,9,4,9,99,-1,8 returns 1 if input is equal to 8()" classname="MainTest" time="0.002"/>
-  <testcase name="Day 7 part one()" classname="MainTest" time="0.086"/>
-  <testcase name="Day 7 part two()" classname="MainTest" time="0.178"/>
+  <testcase name="109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99 takes no input and produces a copy of itself as output()" classname="MainTest" time="0.004"/>
+  <testcase name="Day 7 part one()" classname="MainTest" time="0.112"/>
+  <testcase name="Day 7 part two()" classname="MainTest" time="0.148"/>
   <testcase name="sample data 4 returns data in the exmaple()" classname="MainTest" time="0.001"/>
   <testcase name="Day 7 sampe code 1()" classname="MainTest" time="0.001"/>
-  <testcase name="Day 7 sampe code 2()" classname="MainTest" time="0.002"/>
-  <testcase name="Day 7 sampe code 3()" classname="MainTest" time="0.002"/>
+  <testcase name="Day 7 sampe code 2()" classname="MainTest" time="0.001"/>
+  <testcase name="Day 7 sampe code 3()" classname="MainTest" time="0.001"/>
   <testcase name="Day 5 part one()" classname="MainTest" time="0.002"/>
-  <testcase name="Day 5 part two()" classname="MainTest" time="0.003"/>
+  <testcase name="Day 5 part two()" classname="MainTest" time="0.007"/>
   <testcase name="opcode 2 is an op of 2()" classname="MainTest" time="0.001"/>
   <testcase name="3,9,7,9,10,9,4,9,99,-1,8 return 1 if input is less than 8()" classname="MainTest" time="0.001"/>
   <testcase name="sample data 5 returns data in the exmaple()" classname="MainTest" time="0.001"/>
-  <testcase name="3,3,1107,-1,8,3,4,3,99 return 1 if input is less than 8()" classname="MainTest" time="0.001"/>
-  <testcase name="3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9 retun 0 if output is 0()" classname="MainTest" time="0.001"/>
-  <testcase name="opcode 1002 is an op of 2()" classname="MainTest" time="0.001"/>
-  <testcase name="Part two()" classname="MainTest" time="1.764"/>
-  <testcase name="Day 7 part two sampe code 1()" classname="MainTest" time="0.001"/>
-  <testcase name="Day 7 part two sampe code 2()" classname="MainTest" time="0.002"/>
-  <testcase name="3,3,1105,-1,9,1101,0,0,12,4,12,99,1 retun 0 if output is 0()" classname="MainTest" time="0.0"/>
+  <testcase name="3,3,1107,-1,8,3,4,3,99 return 1 if input is less than 8()" classname="MainTest" time="0.0"/>
+  <testcase name="1102,34915192,34915192,7,4,7,99,0 should output a 16-digit number()" classname="MainTest" time="0.005">
+    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;34915192&gt; but was: &lt;2112&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;34915192&gt; but was: &lt;2112&gt;
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:55)
+	at org.junit.jupiter.api.AssertionUtils.failNotEqual(AssertionUtils.java:62)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:510)
+	at MainTest.1102,34915192,34915192,7,4,7,99,0 should output a 16-digit number(MainTest.kt:244)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:675)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:125)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:132)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:124)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:74)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:104)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:62)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:43)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:35)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$6(TestMethodTestDescriptor.java:202)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:198)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:135)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1540)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1540)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:38)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$5(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$7(NodeTestTask.java:125)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:135)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:123)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:122)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:80)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:32)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:51)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:220)
+	at org.junit.platform.launcher.core.DefaultLauncher.lambda$execute$6(DefaultLauncher.java:188)
+	at org.junit.platform.launcher.core.DefaultLauncher.withInterceptedStreams(DefaultLauncher.java:202)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:181)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:128)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:102)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:82)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:78)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:61)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:32)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:93)
+	at com.sun.proxy.$Proxy2.stop(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.stop(TestWorker.java:132)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:35)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:175)
+	at org.gradle.internal.remote.internal.hub.MessageHubBackedObjectConnection$DispatchWrapper.dispatch(MessageHubBackedObjectConnection.java:157)
+	at org.gradle.internal.remote.internal.hub.MessageHub$Handler.run(MessageHub.java:404)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:63)
+	at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:46)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+	at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:55)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+</failure>
+  </testcase>
+  <testcase name="3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9 retun 0 if output is 0()" classname="MainTest" time="0.002"/>
+  <testcase name="opcode 1002 is an op of 2()" classname="MainTest" time="0.0"/>
+  <testcase name="Part two()" classname="MainTest" time="0.591"/>
+  <testcase name="Day 7 part two sampe code 1()" classname="MainTest" time="0.002"/>
+  <testcase name="Day 7 part two sampe code 2()" classname="MainTest" time="0.005"/>
+  <testcase name="3,3,1105,-1,9,1101,0,0,12,4,12,99,1 retun 0 if output is 0()" classname="MainTest" time="0.002"/>
   <testcase name="sample data 1 returns data in the exmaple()" classname="MainTest" time="0.001"/>
   <system-out><![CDATA[Part one: 4090689
 day07 part one 844468
 Day 7 part two: 4215746
 Day 5 part one: 16348437
 Day 5 part two: 6959377
+2147483647
 Day 02 Part two: 7733
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
