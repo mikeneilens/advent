@@ -9,42 +9,46 @@ fun getParameterMode(value:Char) = when(value) {
     else -> ParameterMode.PositionMode
 }
 
-class Opcode (private val code:Int) {
-    private val codeAsList:List<Char> get() {
+class Opcode (code:Int) {
+    val operation:Int
+    val parameterModes:List<ParameterMode>
+
+    init {
         val list = code.toString().toList()
-        return when (list.size) {
+        val codeAsList = when (list.size) {
             0 -> listOf('0','0','0','0','0')
             1 -> listOf('0','0','0','0') + list
             2 -> listOf('0','0','0') + list
             3 -> listOf('0','0') + list
             4 -> listOf('0') + list
-            else -> return list
+            else -> list
         }
+        operation = (codeAsList[3].toString() + codeAsList[4].toString()).toInt()
+        parameterModes = listOf(getParameterMode(codeAsList[2]), getParameterMode(codeAsList[1]), getParameterMode(codeAsList[0]) )
     }
-
-    val operation:Int  get() = (codeAsList[3].toString() + codeAsList[4].toString()).toInt()
-    val parameterModes get() = listOf(getParameterMode(codeAsList[2]), getParameterMode(codeAsList[1]), getParameterMode(codeAsList[0]) )
 }
 
-class Program (_instructions:MutableList<Number>, _input:MutableList<Number> = mutableListOf(1)) {
-    val instructions:MutableMap<Number,Number>
-    val input:MutableList<Number>
+class Program (_instructions:List<Number>, var input:List<Number> = listOf(1)) {
+    val instructions:MutableMap<Number,Number> = mutableMapOf()
+    var output = listOf<Number>()
+    private var position = 0L
+    var relativeBase = 0L
 
     init {
-        instructions = mutableMapOf()
         _instructions.mapIndexed{key,value -> instructions[key.toNumber()] = value}
-        input = _input
     }
 
-    fun instructionAt(position:Number) = instructions[position] ?: 0
-    private var position = 0L
-    private var inputPosition = 0
-    var relativeBase = 0L
-    var output = mutableListOf<Number>()
+    private fun instructionAt(position:Number) = instructions[position] ?: 0
 
     private val opCode get() = Opcode(instructionAt(position).toInt())
     val isFinished get() = (position >= instructions.size) || (opCode.operation == 99)
-    val isWaitingForInput get() = (functions[opCode.operation] == readInput) && (inputPosition >= input.size)
+    private val isWaitingForInput get() = (functions[opCode.operation] == readInput) && (input.isEmpty())
+
+    fun execute() {
+        while ((!isFinished) && (!isWaitingForInput ) ) {
+            performNextOperation()
+        }
+    }
 
     private fun performNextOperation() = functions[opCode.operation]?.invoke()
 
@@ -62,13 +66,13 @@ class Program (_instructions:MutableList<Number>, _input:MutableList<Number> = m
     }
     private val readInput = fun() {
         val outputAddress = getOutputAddressFromParam(1)
-        instructions[outputAddress] = input[inputPosition]
+        instructions[outputAddress] = input.first()
         position += 2
-        inputPosition += 1
+        input = input.drop(1)
     }
     private val writeToOutput = fun() {
         val firstParameter = getValueFromParam(1)
-        output.add(firstParameter)
+        output = output + firstParameter
         position += 2
     }
     private val jumpIfTrue = fun() {
@@ -85,13 +89,13 @@ class Program (_instructions:MutableList<Number>, _input:MutableList<Number> = m
         if (firstValue < secondValue) instructions[outputAddress] = 1 else instructions[outputAddress] = 0
         position += 4
     }
-    val equals = fun() {
+    private val equals = fun() {
         val (firstValue, secondValue) = getValuesFromParams()
         val outputAddress = getOutputAddressFromParam(3)
         if (firstValue == secondValue) instructions[outputAddress] = 1 else instructions[outputAddress] = 0
         position += 4
     }
-    val adjustRelativeBase = fun() {
+    private val adjustRelativeBase = fun() {
         val firstValue = getValueFromParam(1)
         relativeBase += firstValue
         position += 2
@@ -113,14 +117,11 @@ class Program (_instructions:MutableList<Number>, _input:MutableList<Number> = m
         ParameterMode.RelativeMode -> relativeBase + instructionAt(position + n)
     }
 
-    fun execute() {
-        while ((!isFinished) && (!isWaitingForInput ) ) {
-            performNextOperation()
-        }
-    }
 }
 
-fun process(sampleData: List<Number>): List<Number> = processDay5(sampleData).instructions.values.toList()
+fun process(sampleData: List<Number>): Program = Program(sampleData).apply { execute() }
+
+fun process(sampleData: List<Number>, input:List<Number> = listOf(1)): Program = Program(sampleData, input).apply{ execute()}
 
 fun findInputsThatCreateAValue(sampleData:List<Number>, valueToFind:Number):Pair<Number,Number> {
     for (parameter1 in 0..99) {
@@ -128,25 +129,23 @@ fun findInputsThatCreateAValue(sampleData:List<Number>, valueToFind:Number):Pair
             val freshData = sampleData.toMutableList()
             freshData[1] = parameter1.toNumber()
             freshData[2] = parameter2.toNumber()
-            val resultOfProcess = process(freshData)
+            val resultOfProcess = process(freshData).instructions.values.toList()
             if (resultOfProcess[0] == valueToFind) return Pair(parameter1.toNumber(),parameter2.toNumber())
         }
     }
     return Pair(0,0)
 }
 
-fun processDay5(sampleData: List<Number>, input:List<Number> = listOf(1)): Program = Program(sampleData.toMutableList(), input.toMutableList()).apply{execute()}
-
 fun calMaxThrusterSignal(sampleData:List<Number>, phaseSettings:List<Int>):Number{
     var outputFromPreviousAmp = 0L
     phaseSettings.forEach {phaseSetting ->
-        outputFromPreviousAmp = processDay5(sampleData, listOf(phaseSetting.toNumber(),outputFromPreviousAmp)).output.last()
+        outputFromPreviousAmp = process(sampleData, listOf(phaseSetting.toNumber(),outputFromPreviousAmp)).output.last()
     }
     return outputFromPreviousAmp
 }
 
 fun calcMaxOutput(sampleData:List<Number>, phaseSettings:List<Int>):Number {
-    val permutationsOfPhaseSettings = permute<Int>(phaseSettings)
+    val permutationsOfPhaseSettings = permute(phaseSettings)
     val results = permutationsOfPhaseSettings.map{ phaseSetting -> calMaxThrusterSignal(sampleData,phaseSetting)}
     return results.max() ?: 0
 }
@@ -163,7 +162,7 @@ fun calcMaxThrusterSignalUsingFeedback(sampleData:List<Number>, phaseSettings:Li
     while (programs.map{it.isFinished}.contains(false)) {
         programs.forEach{ program ->
             if (!program.isFinished) {
-                program.input.add(lastOutput)
+                program.input += lastOutput
                 program.execute()
                 lastOutput = program.output.last()
             }
