@@ -9,7 +9,7 @@ fun getParameterMode(value:Char) = when(value) {
     else -> ParameterMode.PositionMode
 }
 
-class Opcode (code:Int) {
+class Opcode (code:Number) {
     val operation:Int
     val parameterModes:List<ParameterMode>
 
@@ -40,7 +40,7 @@ class Program (_instructions:List<Number>, var input:List<Number> = listOf(1)) {
 
     private fun instructionAt(position:Number) = instructions[position] ?: 0
 
-    private val opCode get() = Opcode(instructionAt(position).toInt())
+    private val opCode get() = Opcode(instructionAt(position))
     val isFinished get() = (position >= instructions.size) || (opCode.operation == 99)
     private val isWaitingForInput get() = (functions[opCode.operation] == readInput) && (input.isEmpty())
 
