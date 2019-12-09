@@ -34,7 +34,7 @@ class Program (val instructions:MutableList<Int>, val input:MutableList<Int> = m
     private val isWaitingForInput get() = (functions[opCode.operation] == readInput) && (inputPosition >= input.size)
 
 
-    private fun performNextOperation() = functions[opCode.operation]?.let{ function -> function()}
+    private fun performNextOperation() = functions[opCode.operation]?.invoke()
 
     private val add = fun() {
         val (firstValue, secondValue) = getParameters()
