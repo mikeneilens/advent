@@ -4,11 +4,11 @@ import java.io.File
 
 class MainTest
 {
-    @Test
+  //  @Test
     fun `Get test data`() {
         val input = File("day10.txt").readLines()
     }
-    @Test
+ //   @Test
     fun `example one for day 10`() {
         val data = listOf(   ".#..#",
                                         ".....",
@@ -42,10 +42,9 @@ class MainTest
             "...##")
         val asteroidMap = data.convertToMap()
         val (position ,quantity) =  asteroidMap.asteroidThatCanSeeTheMostOther() ?: Pair(Position(0,0),0)
-        //println("$position $quantity")
         assertEquals(Position(3,4),position)
     }
- //   @Test
+    @Test
     fun`Best is 5,8 with 33 other asteroids detected`() {
         val data = listOf(
             "......#.#.",
@@ -61,11 +60,10 @@ class MainTest
         )
         val asteroidMap = data.convertToMap()
         val (position ,quantity) =  asteroidMap.asteroidThatCanSeeTheMostOther() ?: Pair(Position(0,0),0)
-        //println("$position $quantity")
         assertEquals(Position(5,8),position)
         assertEquals(33,quantity)
     }
-//    @Test
+    @Test
     fun`Best is 1,2 with 35 other asteroids detected`() {
         val data = listOf(
             "#.#...#.#.",
@@ -81,7 +79,6 @@ class MainTest
         )
         val asteroidMap = data.convertToMap()
         val (position ,quantity) =  asteroidMap.asteroidThatCanSeeTheMostOther() ?: Pair(Position(0,0),0)
-        //println("$position $quantity")
         assertEquals(Position(1,2),position)
         assertEquals(35,quantity)
     }
@@ -100,12 +97,48 @@ class MainTest
             ".....#.#.."
         )
         val asteroidMap = data.convertToMap()
-        val (position ,quantity) =  asteroidMap.asteroidThatCanSeeTheMostOther() ?: Pair(Position(0,0),0)
-        println("$position $quantity")
-        println(  Position(6,3).let { Pair(it, asteroidMap.asteroidsVisible(it))})
-        assertEquals(Position(6,3),position)
-        assertEquals(41,quantity)
+        val (position, quantity) = asteroidMap.asteroidThatCanSeeTheMostOther() ?: Pair(Position(0, 0), 0)
+        assertEquals(Position(6, 3), position)
+        assertEquals(41, quantity)
+    }
+    @Test
+    fun`Best is 11,13 with 210 other asteroids detected`() {
+        val data = listOf(
+            ".#..##.###...#######",
+            "##.############..##.",
+            ".#.######.########.#",
+            ".###.#######.####.#.",
+            "#####.##.#.##.###.##",
+            "..#####..#.#########",
+            "####################",
+            "#.####....###.#.#.##",
+            "##.#################",
+            "#####.##.###..####..",
+            "..######..##.#######",
+            "####.##.####...##..#",
+            ".#####..#.######.###",
+            "##...#.##########...",
+            "#.##########.#######",
+            ".####.#.###.###.#.##",
+            "....##.##.###..#####",
+            ".#.#.###########.###",
+            "#.#.#.#####.####.###",
+            "###.##.####.##.#..##"
+        )
 
+        val asteroidMap = data.convertToMap()
+        val (position, quantity) = asteroidMap.asteroidThatCanSeeTheMostOther() ?: Pair(Position(0, 0), 0)
+        assertEquals(Position(11, 13), position)
+        assertEquals(210, quantity)
+    }
+    @Test
+    fun `Day 10 part one`() {
+        val data = File("day10.txt").readLines()
+        val asteroidMap = data.convertToMap()
+        val (position, quantity) = asteroidMap.asteroidThatCanSeeTheMostOther() ?: Pair(Position(0, 0), 0)
 
+        println("Day 10 part one $position $quantity")
+        assertEquals(Position(22, 19), position)
+        assertEquals(282, quantity)
     }
 }

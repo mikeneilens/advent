@@ -1,17 +1,19 @@
 import java.lang.Math.abs
+import java.lang.Math.atan2
 
 data class Position(val x:Int, val y:Int)
 
 fun Position.distanceTo(position:Position) = (this.x - position.x) * (this.x - position.x) + abs(this.y - position.y) * abs(this.y - position.y)
 
-fun Position.angleTo(position:Position):Double =
-    if (this.y == position.y)
-         if (this.x > position.x) Double.MAX_VALUE else -Double.MAX_VALUE
-    else
-        if (this.x == position.x) 0.0
-    else
-        ( (this.x - position.x).toDouble() / (this.y - position.y))
-
+fun Position.bearingTo(position:Position):Double { //took me ages to get this right!
+    val TWOPI = 6.2831853071795865;
+    val RAD2DEG = 57.2957795130823209;
+// if (a1 = b1 and a2 = b2) throw an error
+    var theta = atan2(this.x.toDouble() - position.x, this.y.toDouble() - position.y);
+    return if (theta < 0.0)
+        (theta + TWOPI) * RAD2DEG;
+    else RAD2DEG * theta;
+}
 
 fun List<String>.convertToMap():Map<Position,Char>{
     val map = mutableMapOf<Position,Char>()
@@ -35,12 +37,11 @@ fun Map<Position,Char>.print() {
 }
 
 fun Map<Position,Char>.asteroidsVisible(sourcePosition:Position) = this.keys.map {asteroidPosition ->
-    val angleToAsteroidPosition = sourcePosition.angleTo(asteroidPosition)
+    val bearingToAsteroidPosition = sourcePosition.bearingTo(asteroidPosition)
     val asteroidInTheWay = this.keys.any{otherAsteroidPosition ->
             (otherAsteroidPosition != sourcePosition)
-                    && (sourcePosition.angleTo(otherAsteroidPosition) == angleToAsteroidPosition)
+                    && (sourcePosition.bearingTo(otherAsteroidPosition) == bearingToAsteroidPosition)
                     && (otherAsteroidPosition.distanceTo(sourcePosition) < asteroidPosition.distanceTo(sourcePosition))  }
-//    println("$sourcePosition $asteroidInTheWay $angle")
     if (asteroidInTheWay) 0 else 1
 }.sum() - 1
 
