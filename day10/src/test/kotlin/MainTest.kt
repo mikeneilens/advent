@@ -130,8 +130,9 @@ class MainTest
         val (position, quantity) = asteroidMap.asteroidThatCanSeeTheMostOther() ?: Pair(Position(0, 0), 0)
         assertEquals(Position(11, 13), position)
         assertEquals(210, quantity)
+
     }
-    @Test
+    //@Test
     fun `Day 10 part one`() {
         val data = File("day10.txt").readLines()
         val asteroidMap = data.convertToMap()
@@ -140,5 +141,76 @@ class MainTest
         println("Day 10 part one $position $quantity")
         assertEquals(Position(22, 19), position)
         assertEquals(282, quantity)
+    }
+
+    @Test
+    fun `Part two example one`() {
+        val data = listOf(
+            ".#....#####...#..",
+            "##...##.#####..##",
+            "##...#...#.#####.",
+            "..#.....#...###..",
+            "..#.#.....#....##"
+        )
+        val sourcePosition = Position(8,3)
+        val asteroidMap = data.convertToMap().toMutableMap()
+        asteroidMap[sourcePosition] = 'X'
+        val lastAsteroidZapped = asteroidMap.removeAsteroids(sourcePosition,9)
+
+        asteroidMap.print()
+        assertEquals('O', asteroidMap[Position(8,1)])
+        assertEquals('O', asteroidMap[Position(9,0)])
+        assertEquals('O', asteroidMap[Position(9,1)])
+        assertEquals('O', asteroidMap[Position(9,2)])
+        assertEquals('O', asteroidMap[Position(10,0)])
+        assertEquals('O', asteroidMap[Position(11,1)])
+        assertEquals(Position(15,1), lastAsteroidZapped)
+
+    }
+
+    @Test
+    fun `Part two example two`() {
+        val data = listOf(
+            ".#..##.###...#######",
+            "##.############..##.",
+            ".#.######.########.#",
+            ".###.#######.####.#.",
+            "#####.##.#.##.###.##",
+            "..#####..#.#########",
+            "####################",
+            "#.####....###.#.#.##",
+            "##.#################",
+            "#####.##.###..####..",
+            "..######..##.#######",
+            "####.##.####...##..#",
+            ".#####..#.######.###",
+            "##...#.##########...",
+            "#.##########.#######",
+            ".####.#.###.###.#.##",
+            "....##.##.###..#####",
+            ".#.#.###########.###",
+            "#.#.#.#####.####.###",
+            "###.##.####.##.#..##"
+        )
+
+        val sourcePosition = Position(11,13)
+        val asteroidMap = data.convertToMap().toMutableMap()
+        asteroidMap[sourcePosition] = 'X'
+        val lastAsteroidZapped = asteroidMap.removeAsteroids(sourcePosition,200)
+        assertEquals(Position(8,2), lastAsteroidZapped)
+    }
+
+    @Test
+    fun `Day 10 part two`() {
+        val data = File("day10.txt").readLines()
+
+        val sourcePosition = Position(22,19)
+        val asteroidMap = data.convertToMap().toMutableMap()
+        asteroidMap[sourcePosition] = 'X'
+        val lastAsteroidZapped = asteroidMap.removeAsteroids(sourcePosition,200)
+
+        println("last asteroid Zapped $lastAsteroidZapped}")
+
+        assertEquals(Position(10,8), lastAsteroidZapped)
     }
 }
