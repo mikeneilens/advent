@@ -49,6 +49,8 @@ fun Map<Position,Char>.asteroidThatCanSeeTheMostOther():Pair<Position, Int>? {
    return this.map{ Pair(it.key, this.asteroidsVisible(it.key))}.maxBy { it.second }
 }
 
+
+//Part two
 fun Map<Position,Char>.findAllBearings(sourcePosition:Position) = this.keys.mapNotNull{asteroidPosition ->
     if (asteroidPosition == sourcePosition) null
     else sourcePosition.bearingTo(asteroidPosition)
@@ -65,12 +67,12 @@ fun MutableMap<Position,Char>.removeAsteroid(sourcePosition:Position, bearing:Do
     }
 }
 
-fun MutableMap<Position, Char>.removeAsteroids(sourcePosition: Position, noToZap:Int):Position? {
+fun MutableMap<Position, Char>.removeAsteroids(sourcePosition: Position, qtyToZap:Int):Position? {
     val allBearings = this.findAllBearings(sourcePosition).sorted()
 
     var bearingNdx = 0
     var lastPositionedZapped:Position? = null
-    while (this.values.count { it == 'O' } < noToZap) {
+    while (this.values.count { it == 'O' } < qtyToZap) {
         val asteroidZapped = this.removeAsteroid(sourcePosition,allBearings[bearingNdx])
         asteroidZapped?.let{lastPositionedZapped = it}
         bearingNdx += 1

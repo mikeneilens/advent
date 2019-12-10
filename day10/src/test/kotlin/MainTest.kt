@@ -209,7 +209,7 @@ class MainTest
         asteroidMap[sourcePosition] = 'X'
         val lastAsteroidZapped = asteroidMap.removeAsteroids(sourcePosition,200)
 
-        println("last asteroid Zapped $lastAsteroidZapped}")
+        println("Day 10 part two: last asteroid Zapped $lastAsteroidZapped}")
 
         assertEquals(Position(10,8), lastAsteroidZapped)
     }
