@@ -19,18 +19,18 @@ enum class Turn {Left, Right}
 fun Number.toTurn() = if (this == 0L) Turn.Left else Turn.Right
 
 data class Position(val x:Int = 0, val y:Int = 0) {
-    fun move(direction:Direction) = Position(this.x + direction.moveBy.x, this.y + direction.moveBy.y)
+    fun move(direction:Direction) = Position(x + direction.moveBy.x, y + direction.moveBy.y)
 }
 
 data class Paint(val value:Number)
 
-fun Hull.paintedPanels() = this.keys.size
+fun Hull.paintedPanels() = keys.size
 fun Hull.colorAt(position:Position) = this[position] ?: Paint(0)
 fun Hull.paint(position:Position, paint:Paint) { this[position] = paint }
 
 fun Hull.print() {
-    val rangeY = (this.keys.map{it.y}.min() ?: -999)..(this.keys.map{it.y}.max() ?: 999)
-    val rangeX = (this.keys.map{it.x}.min() ?: -999)..(this.keys.map{it.x}.max() ?: 999)
+    val rangeY = (keys.map{it.y}.min() ?: -999)..(keys.map{it.y}.max() ?: 999)
+    val rangeX = (keys.map{it.x}.min() ?: -999)..(keys.map{it.x}.max() ?: 999)
 
     for (y in rangeY){
         for (x in rangeX) {
