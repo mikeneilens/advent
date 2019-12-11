@@ -1,17 +1,34 @@
+typealias Hull = MutableMap<Position,Paint>
+fun newHull() = mutableMapOf<Position,Paint>()
 
+enum class Direction { North, East, South, West;
+    fun changeDirection(turn:Turn) = when (this) {
+        North -> if (turn == Turn.Left) West else East
+        East -> if (turn == Turn.Left) North else South
+        South -> if (turn == Turn.Left) East else West
+        West -> if (turn == Turn.Left) South else North
+    }
+    val moveBy get() = when (this) {
+        North -> Position(0,-1)
+        East -> Position(1,0)
+        South -> Position(0,1)
+        West -> Position(-1,0)
+    }
+}
+enum class Turn {Left, Right}
+fun Number.toTurn() = if (this == 0L) Turn.Left else Turn.Right
 
 data class Position(val x:Int, val y:Int) {
-    private val directions get() = listOf(Position(0,-1), Position(1,0), Position(0,1), Position(-1,0))
-    fun move(directionNdx:Int) = Position(this.x + directions[directionNdx].x, this.y + directions[directionNdx].y)
+    fun move(direction:Direction) = Position(this.x + direction.moveBy.x, this.y + direction.moveBy.y)
 }
 
-class Paint(val value:Number)
+data class Paint(val value:Number)
 
-fun Map<Position,Paint>.paintedPanels() = this.keys.size
-fun Map<Position,Paint>.colorAt(position:Position) = this[position] ?: Paint(0)
-fun MutableMap<Position,Paint>.paint(position:Position, paint:Paint) { this[position] = paint }
+fun Hull.paintedPanels() = this.keys.size
+fun Hull.colorAt(position:Position) = this[position] ?: Paint(0)
+fun Hull.paint(position:Position, paint:Paint) { this[position] = paint }
 
-fun Map<Position,Paint>.print() {
+fun Hull.print() {
     val rangeY = (this.keys.map{it.y}.min() ?: -999)..(this.keys.map{it.y}.max() ?: 999)
     val rangeX = (this.keys.map{it.x}.min() ?: -999)..(this.keys.map{it.x}.max() ?: 999)
 
@@ -21,7 +38,7 @@ fun Map<Position,Paint>.print() {
                 null -> ' '
                 Paint(0) -> ' '
                 Paint(1) -> '#'
-                else -> ' '
+                else -> '!'
             }
             print(char)
         }
@@ -34,30 +51,24 @@ fun solvePartOne(sourceCode:List<Number>, initialPaint:Paint):Int {
     val program = Program(sourceCode,listOf())
 
     var robotPosition = Position(0,0)
-    var robotDirectionNdx = 0
-    val hullMap = mutableMapOf<Position, Paint>()
-    hullMap.paint(robotPosition,initialPaint)
+    var robotDirection = Direction.North
+    val hull = newHull()
+    hull.paint(robotPosition,initialPaint)
 
     while (!program.isFinished) {
-        program.input += hullMap.colorAt(robotPosition).value
+        program.input += hull.colorAt(robotPosition).value
 
         program.execute()
 
         val color = program.output[program.output.lastIndex - 1]
-        val turn = program.output[program.output.lastIndex ]
+        val turn = (program.output[program.output.lastIndex ]).toTurn()
 
-        hullMap.paint(robotPosition,Paint(color))
+        hull.paint(robotPosition,Paint(color))
 
-        robotDirectionNdx = changeDirection(robotDirectionNdx,turn)
+        robotDirection = robotDirection.changeDirection(turn)
 
-        robotPosition = robotPosition.move(robotDirectionNdx)
+        robotPosition = robotPosition.move(robotDirection)
     }
-    hullMap.print()
-    return hullMap.paintedPanels()
+    hull.print()
+    return hull.paintedPanels()
 }
-
-fun changeDirection(directionNdx:Int, turn:Number) =
-    if (turn == 0L)
-        if (directionNdx > 0) directionNdx - 1 else 3
-    else
-        if (directionNdx < 3) directionNdx + 1 else 0
