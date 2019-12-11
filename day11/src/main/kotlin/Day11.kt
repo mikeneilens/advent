@@ -18,7 +18,7 @@ enum class Direction { North, East, South, West;
 enum class Turn {Left, Right}
 fun Number.toTurn() = if (this == 0L) Turn.Left else Turn.Right
 
-data class Position(val x:Int, val y:Int) {
+data class Position(val x:Int = 0, val y:Int = 0) {
     fun move(direction:Direction) = Position(this.x + direction.moveBy.x, this.y + direction.moveBy.y)
 }
 
@@ -50,7 +50,7 @@ fun Hull.print() {
 fun solvePartOne(sourceCode:List<Number>, initialPaint:Paint):Int {
     val program = Program(sourceCode,listOf())
 
-    var robotPosition = Position(0,0)
+    var robotPosition = Position()
     var robotDirection = Direction.North
     val hull = newHull()
     hull.paint(robotPosition,initialPaint)
