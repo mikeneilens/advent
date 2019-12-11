@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MainTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2019-12-10T20:34:22" hostname="MacBook-Pro-2" time="1.696">
+<testsuite name="MainTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2019-12-11T08:31:12" hostname="mike-ThinkPad-L380" time="2.274">
   <properties/>
-  <testcase name="Best is 6,3 with 41 other asteroids detected()" classname="MainTest" time="0.058"/>
-  <testcase name="Best is 11,13 with 210 other asteroids detected()" classname="MainTest" time="1.586"/>
-  <testcase name="Star at position 3,4 can see the most other asteroids()" classname="MainTest" time="0.0"/>
-  <testcase name="Best is 1,2 with 35 other asteroids detected()" classname="MainTest" time="0.004"/>
-  <testcase name="Best is 5,8 with 33 other asteroids detected()" classname="MainTest" time="0.005"/>
-  <testcase name="Part two example one()" classname="MainTest" time="0.007"/>
-  <testcase name="Part two example two()" classname="MainTest" time="0.013"/>
-  <testcase name="Day 10 part two()" classname="MainTest" time="0.018"/>
+  <testcase name="Best is 6,3 with 41 other asteroids detected()" classname="MainTest" time="0.082"/>
+  <testcase name="Best is 11,13 with 210 other asteroids detected()" classname="MainTest" time="2.085"/>
+  <testcase name="Star at position 3,4 can see the most other asteroids()" classname="MainTest" time="0.005"/>
+  <testcase name="Best is 1,2 with 35 other asteroids detected()" classname="MainTest" time="0.012"/>
+  <testcase name="Best is 5,8 with 33 other asteroids detected()" classname="MainTest" time="0.007"/>
+  <testcase name="Part two example one()" classname="MainTest" time="0.012"/>
+  <testcase name="Part two example two()" classname="MainTest" time="0.021"/>
+  <testcase name="Day 10 part two()" classname="MainTest" time="0.032"/>
   <testcase name="Star at position 3,4 can see each other asteroids except one at 1,0()" classname="MainTest" time="0.001"/>
   <system-out><![CDATA[.#....###OO...#..
 ##...##.OO#OO..O#
