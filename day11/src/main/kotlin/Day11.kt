@@ -47,7 +47,7 @@ fun Hull.print() {
 }
 
 
-fun solvePartOne(sourceCode:List<Number>, initialPaint:Paint):Int {
+fun solveDay11(sourceCode:List<Number>, initialPaint:Paint):Int {
     val program = Program(sourceCode,listOf())
 
     var robotPosition = Position()
