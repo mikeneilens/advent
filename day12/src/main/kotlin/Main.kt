@@ -1,9 +1,13 @@
 import kotlin.math.abs
 
+data class Moon (var position:Position, var velocity: Velocity = Velocity(0,0,0)) {
+    fun calcGravity(allMoons:List<Moon>):Velocity = allMoons.map{ otherMoon -> position.calcGravity(otherMoon.position) }.sum()
+
+    fun copy() = Moon(Position(this.position.x, this.position.y, this.position.z), Velocity(this.velocity.x,this.velocity.y,this.velocity.z))
+}
+
 data class Position(val x:Int, val y:Int, val z:Int) {
     fun calcGravity(other:Position) = Velocity(calcAxisGravity(x, other.x),calcAxisGravity(y, other.y),calcAxisGravity(z, other.z))
-
-    fun calcGravity(allMoons:List<Position>):Velocity = allMoons.map{ otherMoon -> this.calcGravity(otherMoon) }.sum()
 
     private fun calcAxisGravity(val1:Int, val2:Int) = when (true) {
             (val1 < val2) -> +1
@@ -19,57 +23,52 @@ data class Velocity(val x:Int, val y:Int, val z:Int) {
 
 fun List<Velocity>.sum() = fold(Velocity(0,0,0)){ total, velocity -> total + velocity}
 
-fun moveMoons(startingPositions:List<Position>, startingVelocities:List<Velocity>, maxSteps:Int):Pair<List<Position>, List<Velocity>> {
-    var moonPositions = startingPositions
-    var moonVelocities = startingVelocities
+fun moveMoons(startingMoons:List<Moon>, maxSteps:Int):List<Moon> {
+    val moons = startingMoons.map{it.copy()}
     var steps = 0
 
     while (steps < maxSteps) {
-        moonVelocities = moonPositions.mapIndexed { index, moonPosition -> moonVelocities[index] + moonPosition.calcGravity(moonPositions) }
-        moonPositions = moonPositions.mapIndexed { index, moonPosition -> moonPosition + moonVelocities[index] }
+        moons.forEach { moon -> moon.velocity += moon.calcGravity(moons) }
+        moons.forEach { moon -> moon.position += moon.velocity }
         ++steps
     }
-    return Pair(moonPositions, moonVelocities)
+    return moons
 }
 
-fun totalEnergy(moonPositions:List<Position>, moonVelocities:List<Velocity>) =  moonPositions.mapIndexed { index, moonPosition ->
-    (abs(moonPosition.x) + abs(moonPosition.y) + abs(moonPosition.z)) * (abs(moonVelocities[index].x) + abs(moonVelocities[index].y) + abs(moonVelocities[index].z))
+fun totalEnergy(moons:List<Moon>) =  moons.map { moon ->
+    (abs(moon.position.x) + abs(moon.position.y) + abs(moon.position.z)) * (abs(moon.velocity.x) + abs(moon.velocity.y) + abs(moon.velocity.z))
 }.sum()
 
-fun findFirstRepeatingXYZ(startingPositions:List<Position>, startingVelocities:List<Velocity>, maxSteps:Int):Triple<Int,Int,Int> {
-    var moonPositions = startingPositions
-    var moonVelocities = startingVelocities
+
+fun findFirstRepeatingXYZ(startingMoons:List<Moon>, maxSteps:Int):Triple<Int,Int,Int> {
+    val moons = startingMoons.map{it.copy()}
     var steps = 0
     var repeatingX = 0
     var repeatingY = 0
     var repeatingZ = 0
 
     while ((steps < maxSteps) && listOf(repeatingX,repeatingY,repeatingZ).any{it == 0 }) {
-        moonVelocities = moonPositions.mapIndexed { index, moonPosition -> moonVelocities[index] + moonPosition.calcGravity(moonPositions) }
-        moonPositions = moonPositions.mapIndexed { index, moonPosition -> moonPosition + moonVelocities[index] }
+        moons.forEach { moon -> moon.velocity += moon.calcGravity(moons) }
+        moons.forEach { moon -> moon.position += moon.velocity }
 
-        if   (allMoonsHaveSameXPositionTheyStartedWith(moonPositions,startingPositions) && (repeatingX == 0))
-            repeatingX = steps
-        if   (allMoonsHaveSameYPositionTheyStartedWith(moonPositions,startingPositions) && (repeatingY == 0))
-            repeatingY = steps
-        if   (allMoonsHaveSameZPositionTheyStartedWith(moonPositions,startingPositions) && (repeatingZ == 0))
-            repeatingZ = steps
+        if   (allMoonsHaveSameXPositionTheyStartedWith(moons,startingMoons) && (repeatingX == 0))  repeatingX = steps
+        if   (allMoonsHaveSameYPositionTheyStartedWith(moons,startingMoons) && (repeatingY == 0))  repeatingY = steps
+        if   (allMoonsHaveSameZPositionTheyStartedWith(moons,startingMoons) && (repeatingZ == 0))  repeatingZ = steps
 
         ++steps
     }
-    println("$repeatingX $repeatingY $repeatingZ")
     return Triple(repeatingX,repeatingY,repeatingZ)
 }
 
-fun allMoonsHaveSameXPositionTheyStartedWith(moonPositions:List<Position>, original:List<Position>) = moonPositions.mapIndexed{i, moonPosition -> Pair(i,moonPosition)}.all{(i,moon) -> moon.x == original[i].x}
-fun allMoonsHaveSameYPositionTheyStartedWith(moonPositions:List<Position>, original:List<Position>) = moonPositions.mapIndexed{i, moonPosition -> Pair(i,moonPosition)}.all{(i,moon) -> moon.y == original[i].y}
-fun allMoonsHaveSameZPositionTheyStartedWith(moonPositions:List<Position>, original:List<Position>) = moonPositions.mapIndexed{i, moonPosition -> Pair(i,moonPosition)}.all{(i,moon) -> moon.z == original[i].z}
+fun allMoonsHaveSameXPositionTheyStartedWith(moons:List<Moon>, original:List<Moon>) = moons.mapIndexed{i, moon -> Pair(i,moon)}.all{(i,moon) -> moon.position.x == original[i].position.x}
+fun allMoonsHaveSameYPositionTheyStartedWith(moons:List<Moon>, original:List<Moon>) = moons.mapIndexed{i, moon -> Pair(i,moon)}.all{(i,moon) -> moon.position.y == original[i].position.y}
+fun allMoonsHaveSameZPositionTheyStartedWith(moons:List<Moon>, original:List<Moon>) = moons.mapIndexed{i, moon -> Pair(i,moon)}.all{(i,moon) -> moon.position.z == original[i].position.z}
 
-fun findSteps(moonPositions:List<Position>, moonVelocities:List<Velocity>):Long {
-    val (xRepeat,yRepeat,zRepeat) = findFirstRepeatingXYZ(moonPositions, moonVelocities, 100000000)
+fun findSteps(moons:List<Moon>):Long {
+    val (xRepeat,yRepeat,zRepeat) = findFirstRepeatingXYZ(moons, 100000000)
     val greatestCommonFactor = listOf(xRepeat + 2,yRepeat + 2,zRepeat + 2).greatestCommonFactor()
     val totalSteps:Long = 1L * (xRepeat + 2) / greatestCommonFactor * (yRepeat + 2) / greatestCommonFactor * (zRepeat + 2) / greatestCommonFactor
-    println(totalSteps)
+    println("Day 12 part two: $totalSteps")
     return totalSteps
 }
 
