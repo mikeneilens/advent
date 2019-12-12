@@ -15,7 +15,9 @@ data class Velocity(val x:Int, val y:Int, val z:Int) {
     operator fun plus(other:Velocity) = Velocity(x + other.x, y + other.y, z + other.z)
 }
 
-fun Position.calcGravity(allMoons:List<Position>):Velocity = allMoons.map{ otherMoon -> this.calcGravity(otherMoon) }.fold(Velocity(0,0,0)){ a, e -> a + e}
+fun List<Velocity>.sum() = fold(Velocity(0,0,0)){ total, velocity -> total + velocity}
+
+fun Position.calcGravity(allMoons:List<Position>):Velocity = allMoons.map{ otherMoon -> this.calcGravity(otherMoon) }.sum()
 
 fun moveMoons(_moonPositions:List<Position>, _moonVelocities:List<Velocity>, maxSteps:Int):Pair<List<Position>, List<Velocity>> {
     var moonPositions = _moonPositions
