@@ -1,9 +1,12 @@
 import kotlin.math.abs
 
-data class Moon (var position:Position, var velocity: Velocity = Velocity(0,0,0)) {
+data class Moon (var position: Position, var velocity: Velocity = Velocity(0, 0, 0)) {
+    val startingPosition = position
+
     fun calcGravity(allMoons:List<Moon>):Velocity = allMoons.map{ otherMoon -> position.calcGravity(otherMoon.position) }.sum()
 
     fun copy() = Moon(Position(this.position.x, this.position.y, this.position.z), Velocity(this.velocity.x,this.velocity.y,this.velocity.z))
+
 }
 
 data class Position(val x:Int, val y:Int, val z:Int) {
@@ -51,23 +54,23 @@ fun findFirstRepeatingXYZ(startingMoons:List<Moon>, maxSteps:Int):Triple<Int,Int
         moons.forEach { moon -> moon.velocity += moon.calcGravity(moons) }
         moons.forEach { moon -> moon.position += moon.velocity }
 
-        if   (allMoonsHaveSameXPositionTheyStartedWith(moons,startingMoons) && (repeatingX == 0))  repeatingX = steps
-        if   (allMoonsHaveSameYPositionTheyStartedWith(moons,startingMoons) && (repeatingY == 0))  repeatingY = steps
-        if   (allMoonsHaveSameZPositionTheyStartedWith(moons,startingMoons) && (repeatingZ == 0))  repeatingZ = steps
+        if   (moons.allHaveSameXPositionTheyStartedWith() && (repeatingX == 0))  repeatingX = steps
+        if   (moons.allHaveSameYPositionTheyStartedWith() && (repeatingY == 0))  repeatingY = steps
+        if   (moons.allHaveSameZPositionTheyStartedWith() && (repeatingZ == 0))  repeatingZ = steps
 
         ++steps
     }
     return Triple(repeatingX,repeatingY,repeatingZ)
 }
 
-fun allMoonsHaveSameXPositionTheyStartedWith(moons:List<Moon>, original:List<Moon>) = moons.mapIndexed{i, moon -> Pair(i,moon)}.all{(i,moon) -> moon.position.x == original[i].position.x}
-fun allMoonsHaveSameYPositionTheyStartedWith(moons:List<Moon>, original:List<Moon>) = moons.mapIndexed{i, moon -> Pair(i,moon)}.all{(i,moon) -> moon.position.y == original[i].position.y}
-fun allMoonsHaveSameZPositionTheyStartedWith(moons:List<Moon>, original:List<Moon>) = moons.mapIndexed{i, moon -> Pair(i,moon)}.all{(i,moon) -> moon.position.z == original[i].position.z}
+fun List<Moon>.allHaveSameXPositionTheyStartedWith() =all{moon -> moon.position.x == moon.startingPosition.x}
+fun List<Moon>.allHaveSameYPositionTheyStartedWith() =all{moon -> moon.position.y == moon.startingPosition.y}
+fun List<Moon>.allHaveSameZPositionTheyStartedWith() = all{moon -> moon.position.z == moon.startingPosition.z}
 
 fun findSteps(moons:List<Moon>):Long {
     val (xRepeat,yRepeat,zRepeat) = findFirstRepeatingXYZ(moons, 100000000)
     val greatestCommonFactor = listOf(xRepeat + 2,yRepeat + 2,zRepeat + 2).greatestCommonFactor()
-    val totalSteps:Long = 1L * (xRepeat + 2) / greatestCommonFactor * (yRepeat + 2) / greatestCommonFactor * (zRepeat + 2) / greatestCommonFactor
+    val totalSteps = 1L * (xRepeat + 2) / greatestCommonFactor * (yRepeat + 2) / greatestCommonFactor * (zRepeat + 2) / greatestCommonFactor
     println("Day 12 part two: $totalSteps")
     return totalSteps
 }
