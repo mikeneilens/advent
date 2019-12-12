@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MainTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2019-12-12T14:21:34" hostname="mike-ThinkPad-L380" time="0.346">
+<testsuite name="MainTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2019-12-12T18:59:58" hostname="MacBook-Pro-2" time="0.981">
   <properties/>
-  <testcase name="Sampe Code for Part one()" classname="MainTest" time="0.052"/>
-  <testcase name="Sampe Code2 for Part one()" classname="MainTest" time="0.002"/>
-  <testcase name="Answer for Part one()" classname="MainTest" time="0.008"/>
-  <testcase name="Sample code for Part two()" classname="MainTest" time="0.28"/>
+  <testcase name="greatest common factor of 24, 108 and 42 is 6()" classname="MainTest" time="0.083"/>
+  <testcase name="Sampe Code for Part one()" classname="MainTest" time="0.003"/>
+  <testcase name="Sampe Code2 for Part one()" classname="MainTest" time="0.003"/>
+  <testcase name="Answer for Part one()" classname="MainTest" time="0.017"/>
+  <testcase name="Sample code for Part two()" classname="MainTest" time="0.85"/>
   <system-out><![CDATA[167622 231612 96234
 467034091553512
 ]]></system-out>

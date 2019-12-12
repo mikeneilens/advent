@@ -59,9 +59,13 @@ class MainTest {
         val moonPositions = listOf(moon1Position,moon2Position,moon3Position,moon4Position)
         val moonVelocities = listOf(Velocity(0,0,0),Velocity(0,0,0),Velocity(0,0,0),Velocity(0,0,0))
 
-        val result=findSteps(moonPositions, moonVelocities, 100000000)
+        val result=findSteps(moonPositions, moonVelocities)
 
         assertEquals(467034091553512,result)
+    }
+    @Test
+    fun `greatest common factor of 24, 108 and 42 is 6`() {
+        assertEquals(6 ,listOf(24,108,42).greatestCommonFactor())
     }
 
 }
