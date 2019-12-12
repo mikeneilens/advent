@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import kotlin.coroutines.coroutineContext
 
 class MainTest {
 
@@ -46,4 +47,21 @@ class MainTest {
 
         assertEquals(5350, totalEnergy(positions,velocities))
     }
+
+    @Test
+    fun`Sample code for Part two`() {
+
+        val moon1Position = Position(x=4, y=12, z=13)
+        val moon2Position = Position(x=-9, y=14, z=-3)
+        val moon3Position = Position(x=-7, y=-1, z=2)
+        val moon4Position = Position(x=-11, y=17, z=-1)
+
+        val moonPositions = listOf(moon1Position,moon2Position,moon3Position,moon4Position)
+        val moonVelocities = listOf(Velocity(0,0,0),Velocity(0,0,0),Velocity(0,0,0),Velocity(0,0,0))
+
+        val result=findSteps(moonPositions, moonVelocities, 100000000)
+
+        assertEquals(467034091553512,result)
+    }
+
 }
