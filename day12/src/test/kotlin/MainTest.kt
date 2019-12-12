@@ -10,11 +10,11 @@ class MainTest {
         val moon3 = Moon(Position(x=4, y=-8, z=8))
         val moon4 = Moon(Position(x=3, y=5, z=-1))
 
-        val moonPositions = listOf(moon1,moon2,moon3,moon4)
+        val moons = listOf(moon1,moon2,moon3,moon4)
 
-        val moons = moveMoons(moonPositions, 10)
+        val result = moveMoons(moons, 10)
 
-        assertEquals(179, totalEnergy(moons))
+        assertEquals(179, result.totalEnergy())
     }
  @Test
     fun`Sampe Code2 for Part one`() {
@@ -23,11 +23,11 @@ class MainTest {
         val moon3 = Moon(Position(x=2, y=-7, z=3))
         val moon4 = Moon(Position(x=9, y=-8, z=-3))
 
-        val moonPositions = listOf(moon1,moon2,moon3,moon4)
+        val moons = listOf(moon1,moon2,moon3,moon4)
 
-        val moons = moveMoons(moonPositions, 100)
+        val results = moveMoons(moons, 100)
 
-        assertEquals(1940, totalEnergy(moons))
+        assertEquals(1940, results.totalEnergy())
     }
 
     @Test
@@ -37,11 +37,11 @@ class MainTest {
         val moon3 = Moon(Position(x=-7, y=-1, z=2))
         val moon4 = Moon(Position(x=-11, y=17, z=-1))
 
-        val moonPositions = listOf(moon1,moon2,moon3,moon4)
+        val moons = listOf(moon1,moon2,moon3,moon4)
 
-        val moons = moveMoons(moonPositions, 1000)
+        val results = moveMoons(moons, 1000)
 
-        assertEquals(5350, totalEnergy(moons))
+        assertEquals(5350, results.totalEnergy())
     }
 
     @Test

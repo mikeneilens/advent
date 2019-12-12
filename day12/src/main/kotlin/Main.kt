@@ -7,6 +7,7 @@ data class Moon (var position: Position, var velocity: Velocity = Velocity(0, 0,
 
     fun copy() = Moon(Position(this.position.x, this.position.y, this.position.z), Velocity(this.velocity.x,this.velocity.y,this.velocity.z))
 
+    val energy:Int get() = (abs(position.x) + abs(position.y) + abs(position.z)) * (abs(velocity.x) + abs(velocity.y) + abs(velocity.z))
 }
 
 data class Position(val x:Int, val y:Int, val z:Int) {
@@ -38,10 +39,7 @@ fun moveMoons(startingMoons:List<Moon>, maxSteps:Int):List<Moon> {
     return moons
 }
 
-fun totalEnergy(moons:List<Moon>) =  moons.map { moon ->
-    (abs(moon.position.x) + abs(moon.position.y) + abs(moon.position.z)) * (abs(moon.velocity.x) + abs(moon.velocity.y) + abs(moon.velocity.z))
-}.sum()
-
+fun List<Moon>.totalEnergy() =  map { it.energy }.sum()
 
 fun findFirstRepeatingXYZ(startingMoons:List<Moon>, maxSteps:Int):Triple<Int,Int,Int> {
     val moons = startingMoons.map{it.copy()}

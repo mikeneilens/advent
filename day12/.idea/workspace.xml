@@ -59,7 +59,11 @@
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileTestKotlin/caches-jvm/lookups/id-to-file.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileTestKotlin/caches-jvm/lookups/id-to-file.tab.values.at" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileTestKotlin/caches-jvm/lookups/id-to-file.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileTestKotlin/caches-jvm/lookups/id-to-file.tab_i" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileTestKotlin/caches-jvm/lookups/lookups.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileTestKotlin/caches-jvm/lookups/lookups.tab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/kotlin/compileTestKotlin/caches-jvm/lookups/lookups.tab.keystream" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileTestKotlin/caches-jvm/lookups/lookups.tab.keystream" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/kotlin/compileTestKotlin/caches-jvm/lookups/lookups.tab.keystream.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileTestKotlin/caches-jvm/lookups/lookups.tab.keystream.len" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/kotlin/compileTestKotlin/caches-jvm/lookups/lookups.tab.len" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileTestKotlin/caches-jvm/lookups/lookups.tab.len" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileTestKotlin/caches-jvm/lookups/lookups.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileTestKotlin/caches-jvm/lookups/lookups.tab.values.at" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/kotlin/compileTestKotlin/caches-jvm/lookups/lookups.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileTestKotlin/caches-jvm/lookups/lookups.tab_i" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileTestKotlin/last-build.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileTestKotlin/last-build.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/MainTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/classes/MainTest.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/index.html" afterDir="false" />
@@ -67,6 +71,7 @@
       <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-MainTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-MainTest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/kotlin/MainTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/kotlin/MainTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,25 +232,25 @@
       <screen x="67" y="27" width="1853" height="1053" />
     </state>
     <state x="746" y="190" key="#org.jetbrains.kotlin.idea.refactoring.move.moveDeclarations.ui.MoveKotlinTopLevelDeclarationsDialog/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1576140102152" />
-    <state width="1878" height="304" key="GridCell.Tab.0.bottom" timestamp="1576184054834">
+    <state width="1878" height="304" key="GridCell.Tab.0.bottom" timestamp="1576184484458">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="304" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1576184054834" />
+    <state width="1878" height="304" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1576184484458" />
     <state width="1807" height="359" key="GridCell.Tab.0.bottom/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1576161102492" />
-    <state width="1878" height="304" key="GridCell.Tab.0.center" timestamp="1576184054833">
+    <state width="1878" height="304" key="GridCell.Tab.0.center" timestamp="1576184484457">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="304" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1576184054833" />
+    <state width="1878" height="304" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1576184484457" />
     <state width="1807" height="359" key="GridCell.Tab.0.center/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1576161102492" />
-    <state width="1878" height="304" key="GridCell.Tab.0.left" timestamp="1576184054833">
+    <state width="1878" height="304" key="GridCell.Tab.0.left" timestamp="1576184484456">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="304" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1576184054833" />
+    <state width="1878" height="304" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1576184484456" />
     <state width="1807" height="359" key="GridCell.Tab.0.left/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1576161102492" />
-    <state width="1878" height="304" key="GridCell.Tab.0.right" timestamp="1576184054834">
+    <state width="1878" height="304" key="GridCell.Tab.0.right" timestamp="1576184484457">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1878" height="304" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1576184054834" />
+    <state width="1878" height="304" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1576184484457" />
     <state width="1807" height="359" key="GridCell.Tab.0.right/67.27.1853.1053/67.27.1853.1053@67.27.1853.1053" timestamp="1576161102492" />
     <state width="1878" height="375" key="GridCell.Tab.1.bottom" timestamp="1576182457914">
       <screen x="0" y="0" width="1920" height="1080" />
