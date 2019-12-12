@@ -3,6 +3,8 @@ import kotlin.math.abs
 data class Position(val x:Int, val y:Int, val z:Int) {
     fun calcGravity(other:Position) = Velocity(calcAxisGravity(x, other.x),calcAxisGravity(y, other.y),calcAxisGravity(z, other.z))
 
+    fun calcGravity(allMoons:List<Position>):Velocity = allMoons.map{ otherMoon -> this.calcGravity(otherMoon) }.sum()
+
     private fun calcAxisGravity(val1:Int, val2:Int) = when (true) {
             (val1 < val2) -> +1
             (val1 > val2) -> -1
@@ -17,11 +19,9 @@ data class Velocity(val x:Int, val y:Int, val z:Int) {
 
 fun List<Velocity>.sum() = fold(Velocity(0,0,0)){ total, velocity -> total + velocity}
 
-fun Position.calcGravity(allMoons:List<Position>):Velocity = allMoons.map{ otherMoon -> this.calcGravity(otherMoon) }.sum()
-
-fun moveMoons(_moonPositions:List<Position>, _moonVelocities:List<Velocity>, maxSteps:Int):Pair<List<Position>, List<Velocity>> {
-    var moonPositions = _moonPositions
-    var moonVelocities = _moonVelocities
+fun moveMoons(startingPositions:List<Position>, startingVelocities:List<Velocity>, maxSteps:Int):Pair<List<Position>, List<Velocity>> {
+    var moonPositions = startingPositions
+    var moonVelocities = startingVelocities
     var steps = 0
 
     while (steps < maxSteps) {
@@ -36,9 +36,9 @@ fun totalEnergy(moonPositions:List<Position>, moonVelocities:List<Velocity>) =  
     (abs(moonPosition.x) + abs(moonPosition.y) + abs(moonPosition.z)) * (abs(moonVelocities[index].x) + abs(moonVelocities[index].y) + abs(moonVelocities[index].z))
 }.sum()
 
-fun findFirstRepeatingXYZ(_moonPositions:List<Position>, _moonVelocities:List<Velocity>, maxSteps:Int):Triple<Int,Int,Int> {
-    var moonPositions = _moonPositions
-    var moonVelocities = _moonVelocities
+fun findFirstRepeatingXYZ(startingPositions:List<Position>, startingVelocities:List<Velocity>, maxSteps:Int):Triple<Int,Int,Int> {
+    var moonPositions = startingPositions
+    var moonVelocities = startingVelocities
     var steps = 0
     var repeatingX = 0
     var repeatingY = 0
@@ -48,11 +48,11 @@ fun findFirstRepeatingXYZ(_moonPositions:List<Position>, _moonVelocities:List<Ve
         moonVelocities = moonPositions.mapIndexed { index, moonPosition -> moonVelocities[index] + moonPosition.calcGravity(moonPositions) }
         moonPositions = moonPositions.mapIndexed { index, moonPosition -> moonPosition + moonVelocities[index] }
 
-        if   (allMoonsHaveSameXPositionTheyStartedWith(moonPositions,_moonPositions) && (repeatingX == 0))
+        if   (allMoonsHaveSameXPositionTheyStartedWith(moonPositions,startingPositions) && (repeatingX == 0))
             repeatingX = steps
-        if   (allMoonsHaveSameYPositionTheyStartedWith(moonPositions,_moonPositions) && (repeatingY == 0))
+        if   (allMoonsHaveSameYPositionTheyStartedWith(moonPositions,startingPositions) && (repeatingY == 0))
             repeatingY = steps
-        if   (allMoonsHaveSameZPositionTheyStartedWith(moonPositions,_moonPositions) && (repeatingZ == 0))
+        if   (allMoonsHaveSameZPositionTheyStartedWith(moonPositions,startingPositions) && (repeatingZ == 0))
             repeatingZ = steps
 
         ++steps
