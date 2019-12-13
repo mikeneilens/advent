@@ -1,20 +1,20 @@
-
-
-enum class Tile(val symbol:Char) {
-    Empty(' '),
-    Wall ('#'),
-    Block ( '$') ,
-    Horizontal('-'),
-    Ball('O')
+enum class Tile(val symbol:Char, val value:Long) {
+    Empty(' ',0L),
+    Wall ('#',1L),
+    Block ( '$',2L) ,
+    Horizontal('-',3L),
+    Ball('O',4L)
 }
 fun createTile(id:Number):Tile = when (id) {
-    1L -> Tile.Wall
-    2L -> Tile.Block
-    3L -> Tile.Horizontal
-    4L -> Tile.Ball
+    Tile.Wall.value -> Tile.Wall
+    Tile.Block.value -> Tile.Block
+    Tile.Horizontal.value -> Tile.Horizontal
+    Tile.Ball.value -> Tile.Ball
     else -> Tile.Empty
 }
 data class Position(val x:Long, val y:Long)
+
+enum class BatMove(val value:Number) { Left(-1), Right(+1), DoNotMove(0) }
 
 typealias  Screen = MutableMap<Position, Tile>
 
@@ -46,41 +46,44 @@ fun Screen.print() {
     }
 }
 fun Screen.count(tile:Tile) = values.count{it == tile}
+fun Screen.positionOf(tile:Tile) =  toList().first{(_,screenTile) -> screenTile == tile} .first
+
+fun List<Number>.positionOf(tile:Tile) = chunked(3).last{it[2] == tile.value}.run{ Position(this[0],this[1]) }
+
+class Game(var score:Number = 0, var rounds:Int = 0, var  batPosition:Position = Position(999,999), var  ballPosition:Position = Position(999,999), private var ballPreviousPosition:Position = Position(999,999)) {
+    fun startNextRound() {
+        ++rounds
+        ballPreviousPosition = ballPosition
+    }
+    private val nextPositionOfBall get() = when (true) {
+        (ballPosition.x > ballPreviousPosition.x) -> Position(ballPosition.x + 1, ballPosition.y)
+        (ballPosition.x < ballPreviousPosition.x) -> Position(ballPosition.x - 1, ballPosition.y)
+        else -> ballPosition
+    }
+    fun batMoveValue() = when (true) {
+        nextPositionOfBall.x < batPosition.x -> BatMove.Left.value
+        nextPositionOfBall.x > batPosition.x -> BatMove.Right.value
+        else -> BatMove.DoNotMove.value
+    }
+}
+
 
 fun playGame(sourceCode: List<Number>):Number {
     val screen = mutableMapOf<Position, Tile>()
     val program = Program(sourceCode, listOf(0))
-    var score = 0L
-    var runs = 0
-    var batPosition = Position(0,0)
-    var ballLastPosition = Position(0,0)
-    var ballPosition = Position(999,999)
+    val game = Game()
 
-    while (!program.isFinished && runs < 10000) {
+    while (!program.isFinished && game.rounds < 10000) {
         program.execute()
-        score = screen.process(program.output)
+        game.score = screen.process(program.output)
+        game.ballPosition = screen.positionOf(Tile.Ball)
+        game.batPosition = screen.positionOf(Tile.Horizontal)
 
-        ballLastPosition = ballPosition
-        ballPosition = screen.ballPosition()
-        batPosition = screen.batPosition()
-        val ballNextPosition = ballNextPosition(ballPosition,ballLastPosition)
-        val batMove = when (true) {
-            ballNextPosition.x < batPosition.x -> -1L
-            ballNextPosition.x > batPosition.x -> +1L
-            else -> 0L
-        }
-        program.input += program.input + batMove
+        program.input += program.input + game.batMoveValue()
 
-        ++runs
+        game.startNextRound()
     }
     screen.print()
-    println(score)
-    return score
-}
-fun Screen.batPosition() =  toList().first{(key,value) -> value == Tile.Horizontal} .first
-fun Screen.ballPosition() =  toList().first{(key,value) -> value == Tile.Ball}.first
-fun ballNextPosition(ballPosition:Position, ballPreviousPosition:Position) = when (true) {
-    (ballPosition.x > ballPreviousPosition.x) -> Position(ballPosition.x + 1, ballPosition.y)
-    (ballPosition.x < ballPreviousPosition.x) -> Position(ballPosition.x - 1, ballPosition.y)
-    else -> ballPosition
+    println(game.score)
+    return game.score
 }
