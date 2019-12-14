@@ -25,15 +25,13 @@ fun updateScreen(sourceCode:List<Number>):Screen {
     screen.process(program.output)
     return screen
 }
-fun Screen.process(output:List<Number>):Number {
-    var score = 0L
+fun Screen.process(output:List<Number>) {
     output.chunked(3).forEach {
         val x = it[0]
         val y = it[1]
         val tile = createTile(it[2])
-        if ((x == -1L) && (y==0L)) score = it[2] else this[Position(x, y)] = tile
+        if (!((x == -1L) && (y==0L)))  this[Position(x, y)] = tile
     }
-    return score
 }
 fun Screen.print() {
     val rangeX = (keys.map { it.x }.min() ?: -9999)..(keys.map { it.x }.max() ?: 9999)
@@ -46,14 +44,15 @@ fun Screen.print() {
     }
 }
 fun Screen.count(tile:Tile) = values.count{it == tile}
-fun Screen.positionOf(tile:Tile) =  toList().first{(_,screenTile) -> screenTile == tile} .first
 
-fun List<Number>.positionOf(tile:Tile) = chunked(3).last{it[2] == tile.value}.run{ Position(this[0],this[1]) }
+fun List<Number>.positionOf(tile:Tile) = chunked(3).firstOrNull(){it[2] == tile.value}?.run{ Position(this[0],this[1]) }
+fun List<Number>.score() = chunked(3).firstOrNull{ it[0] == -1L && it[1] == 0L }?.elementAt(2)
 
-class Game(var score:Number = 0, var rounds:Int = 0, var  batPosition:Position = Position(999,999), var  ballPosition:Position = Position(999,999), private var ballPreviousPosition:Position = Position(999,999)) {
-    fun startNextRound() {
+class Game(var score:Number = 0, var rounds:Int = 0, var  batPosition:Position = Position(999,999), var  ballPosition:Position = Position(999,999), private var ballPreviousPosition:Position = Position(999,999), var startOfOutput:Int = 0) {
+    fun startNextRound(outputSize:Int) {
         ++rounds
         ballPreviousPosition = ballPosition
+        startOfOutput += outputSize
     }
     private val nextPositionOfBall get() = when (true) {
         (ballPosition.x > ballPreviousPosition.x) -> Position(ballPosition.x + 1, ballPosition.y)
@@ -69,21 +68,21 @@ class Game(var score:Number = 0, var rounds:Int = 0, var  batPosition:Position =
 
 
 fun playGame(sourceCode: List<Number>):Number {
-    val screen = mutableMapOf<Position, Tile>()
     val program = Program(sourceCode, listOf(0))
     val game = Game()
 
-    while (!program.isFinished && game.rounds < 10000) {
+    while (!program.isFinished && game.rounds < 10000 ) {
         program.execute()
-        game.score = screen.process(program.output)
-        game.ballPosition = screen.positionOf(Tile.Ball)
-        game.batPosition = screen.positionOf(Tile.Horizontal)
+
+        val newData = program.output.drop(game.startOfOutput)
+        newData.score()?.let{game.score = it}
+        newData.positionOf(Tile.Ball)?.let {game.ballPosition = it}
+        newData.positionOf(Tile.Horizontal)?.let {game.batPosition = it}
 
         program.input += program.input + game.batMoveValue()
 
-        game.startNextRound()
+        game.startNextRound(newData.size)
     }
-    screen.print()
     println(game.score)
     return game.score
 }
