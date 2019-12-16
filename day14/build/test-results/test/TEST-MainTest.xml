@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="MainTest" tests="1" skipped="1" failures="0" errors="0" timestamp="2019-12-15T22:35:21" hostname="MacBook-Pro-2" time="67926.964">
+  <properties/>
+  <testcase name="Example two calculates the numnber of ORE correctly()" classname="MainTest" time="67926.964">
+    <skipped/>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

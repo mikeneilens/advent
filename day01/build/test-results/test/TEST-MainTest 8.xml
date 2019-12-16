@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="MainTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2019-12-03T08:30:49" hostname="mike-ThinkPad-L380" time="0.069">
+  <properties/>
+  <testcase name="Using advent data()" classname="MainTest" time="0.044"/>
+  <testcase name="mass of 12 needs 2 fuel()" classname="MainTest" time="0.005"/>
+  <testcase name="When adding fuel for fuel the fuel required for a module of mass 1969 is  966()" classname="MainTest" time="0.001"/>
+  <testcase name="When adding fuel for fuel A module of mass 14 requires 2 fuel()" classname="MainTest" time="0.001"/>
+  <testcase name="For a mass of 100756 and 1969 the fuel required is 654 + 33583()" classname="MainTest" time="0.001"/>
+  <testcase name="When adding fuel for fuel the fuel required for a module of mass 100756 is  50346()" classname="MainTest" time="0.001"/>
+  <testcase name="For a mass of 1969, the fuel required is 654()" classname="MainTest" time="0.001"/>
+  <testcase name="For a mass of 100756, the fuel required is 33583()" classname="MainTest" time="0.001"/>
+  <testcase name="mass of 14 needs 2 fuel()" classname="MainTest" time="0.001"/>
+  <testcase name="Using advent data for part two()" classname="MainTest" time="0.002"/>
+  <system-out><![CDATA[Part one: 3282386
+Part two: 4920708
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

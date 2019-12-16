@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="MainTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2019-12-12T21:01:25" hostname="MacBook-Pro-2" time="0.276">
+  <properties/>
+  <testcase name="greatest common factor of 24, 108 and 42 is 6()" classname="MainTest" time="0.028"/>
+  <testcase name="Sampe Code for Part one()" classname="MainTest" time="0.001"/>
+  <testcase name="Sampe Code2 for Part one()" classname="MainTest" time="0.002"/>
+  <testcase name="Answer for Part one()" classname="MainTest" time="0.004"/>
+  <testcase name="Sample code for Part two()" classname="MainTest" time="0.238"/>
+  <system-out><![CDATA[Day 12 part two: 467034091553512
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

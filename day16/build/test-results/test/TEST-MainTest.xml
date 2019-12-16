@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="MainTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2019-12-16T21:03:26" hostname="MacBook-Pro-2" time="0.602">
+  <properties/>
+  <testcase name="first digit with 12345678 gives 12345678 1*1  + 2*0  + 3*-1 + 4*0  + 5*1  + 6*0  + 7*-1 + 8*0  = 4()" classname="MainTest" time="0.025"/>
+  <testcase name="Day 16 part one()" classname="MainTest" time="0.563"/>
+  <testcase name="putting 69317163492948606335995924319873 through 100 phases gives first eight digits of 52432133()" classname="MainTest" time="0.002"/>
+  <testcase name="putting 12345678 through 2 phases gives 34040438()" classname="MainTest" time="0.001"/>
+  <testcase name="putting 12345678 through a complete phase gives 48226158()" classname="MainTest" time="0.001"/>
+  <testcase name="putting 19617804207202209144916044189917 through 100 phases gives first eight digits of 73745418()" classname="MainTest" time="0.003"/>
+  <testcase name="So if the third element of the output list is being calculated repeating the values would produce 0, 0, 0, 1, 1, 1, 0, 0, 0, -1, -1, -1()" classname="MainTest" time="0.0"/>
+  <testcase name="putting 80871224585914546619083218645595 through 100 phases gives first eight digits of 24176176()" classname="MainTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
