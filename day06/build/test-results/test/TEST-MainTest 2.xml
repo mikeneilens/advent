@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="MainTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2019-12-07T14:38:18" hostname="MacBook-Pro-2" time="0.044">
+  <properties/>
+  <testcase name="No of Orbits of C for COM)C is 1()" classname="MainTest" time="0.023"/>
+  <testcase name="test something()" classname="MainTest" time="0.018"/>
+  <testcase name="No of Orbits of D for COM)C)D is 2()" classname="MainTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
