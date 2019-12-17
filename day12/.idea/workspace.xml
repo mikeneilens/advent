@@ -2,17 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2856dc19-6a46-4304-a7ec-179eee992157" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../day13/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../day13/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../day13/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../day13/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../day13/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../day13/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../day13/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../day13/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../day13/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../day13/gradlew.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day16/.idea/day16.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day16/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day17/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day17/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../day17/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../day16/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../day16/.idea/gradle.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
