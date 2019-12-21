@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="MainTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-21T16:20:14" hostname="MacBook-Pro-2" time="38.705">
+  <properties/>
+  <testcase name="part two different solution()" classname="MainTest" time="38.705"/>
+  <system-out><![CDATA[Solution is y: 1081 x: 675
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
