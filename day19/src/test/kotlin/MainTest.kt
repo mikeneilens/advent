@@ -12,32 +12,8 @@ class MainTest {
     }
 
     @Test
-    fun `part two different solution`() {
-        var y = 1000 //guestimate this to prevent too much number crunching
-        var solutionFound = false
-        var solutionForX = 0
-        var solutionForY = 0
-        while (!solutionFound) {
-            val rowYMap = pullAtEachLocation(sourceCode, y)
-            val firstPullX = rowYMap.toList().first { it.second == Content.pull }.first.x
-            if (rowYMap[Position(firstPullX + 99, y)] == Content.pull) {
-                val diagonalX = firstPullX + 99
-                val diagonalY = y - 99
-                val list = listOf(diagonalX,diagonalY).map{it.toNumber()}
-                val program = Program(sourceCode, list)
-                program.execute()
-                if ( Content.create(program.output.first().toInt()) == Content.pull ) {
-                    solutionFound = true
-                    solutionForX = diagonalX - 99
-                    solutionForY = y - 99
-                } else {
-                    y++
-                }
-            } else {
-                y++
-            }
-
-        }
-        println("Solution is y: $solutionForY x: $solutionForX" )
+    fun `Day 19 part two`() {
+        val result = findPositionWhichContainsA100X100Square(sourceCode)
+        assertEquals(Position(675,1081),result)
     }
 }
