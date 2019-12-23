@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MainTest" tests="1" skipped="1" failures="0" errors="0" timestamp="2019-12-15T22:35:21" hostname="MacBook-Pro-2" time="67926.964">
+<testsuite name="MainTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-23T15:51:23" hostname="MacBook-Pro-2" time="174.485">
   <properties/>
-  <testcase name="Example two calculates the numnber of ORE correctly()" classname="MainTest" time="67926.964">
-    <skipped/>
-  </testcase>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="test formulas are created correctly()" classname="MainTest" time="174.485"/>
+  <system-out><![CDATA[ElementMap@3217a1a1
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

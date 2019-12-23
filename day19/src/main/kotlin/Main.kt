@@ -19,7 +19,6 @@ fun SpaceMap.print() {
 }
 fun SpaceMap.noOfPointsAffectedByPull() = values.count { it == Content.pull }
 
-
 fun runComputerForPosition(sourceCode:List<Number>, position:Position):Content {
     val input = listOf(position.x,position.y).map{it.toNumber()}
     val program = Program(sourceCode, input)
