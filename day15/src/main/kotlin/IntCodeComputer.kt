@@ -39,7 +39,8 @@ class Program (_instructions:List<Number>, var input:List<Number> = listOf(1)) {
     }
     fun copy():Program  = Program(instructions.values.toList(),input.map{it}.toList()).also{
             it.output = this.output
-            it.position = position
+            it.position = this.position
+            it.relativeBase = this.relativeBase
         }
 
     private fun instructionAt(position:Number) = instructions[position] ?: 0
