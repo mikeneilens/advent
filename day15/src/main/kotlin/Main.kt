@@ -32,12 +32,11 @@ fun solveProblemOne(sourceCode:List<Number>):Pair<List<MovementCommand>,MutableM
     fun moveUntilBlocked(program:Program, moves:Int = 1, position:Position = Position(0,0),movementCommands:List<MovementCommand> = listOf()){
 
         MovementCommand.values().forEach {movementCommand ->
-            val imageAtNewPositon = positionsVisited[position + movementCommand.move]
+            val adjacentPosition = position + movementCommand.move
 
-            if (imageAtNewPositon == null) {
+            if (positionsVisited.status(adjacentPosition) == StatusCode.NotCharted) {
                 val programCopy = program.copy()
                 val statusCode = makeMove(programCopy,movementCommand)
-                val adjacentPosition = position + movementCommand.move
                 positionsVisited[adjacentPosition] = statusCode
 
                 when (statusCode) {
@@ -65,12 +64,10 @@ fun findPositionsAdjacentToOxygen(map:Map<Position, StatusCode>):List<Position> 
     val result = mutableListOf<Position>()
     map.yRange().forEach{y ->
         map.xRange().forEach { x ->
-            val statusCode = map[Position(x,y)] ?: StatusCode.NotCharted
-            if (statusCode == StatusCode.AtOxygenSystem) {
+            if ( map.status(Position(x,y)) == StatusCode.AtOxygenSystem) {
                 MovementCommand.values().forEach{
                     val adjacentPosition = Position(x,y) + it.move
-                    val statusCodeAtAdjacentPosition = map[adjacentPosition] ?: StatusCode.NotCharted
-                    if (statusCodeAtAdjacentPosition == StatusCode.MovedOneStep) {
+                    if (map.status(adjacentPosition) == StatusCode.MovedOneStep) {
                         result += adjacentPosition
                     }
                 }
@@ -104,10 +101,12 @@ fun MutableMap<Position, StatusCode>.applyStatusCodes(list:List<Position>, statu
         this[position] = statusCode
     }
 
+fun Map<Position, StatusCode>.status(position:Position) = this[position] ?: StatusCode.NotCharted
+
 fun <T>Map<Position, T>.xRange() = (keys.map{it.x}.min() ?: 0)..(keys.map{it.x}.max() ?: 0)
 fun <T>Map<Position, T>.yRange() = (keys.map{it.y}.min() ?: 0)..(keys.map{it.y}.max() ?: 0)
 fun MutableMap<Position, StatusCode>.print() {
-    yRange().forEach{y -> xRange().forEach { x -> print((this[Position(x,y)] ?: StatusCode.NotCharted).image) }
+    yRange().forEach{y -> xRange().forEach { x -> print(this.status(Position(x,y)).image) }
        println()
     }
 }

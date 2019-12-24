@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MainTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2019-12-24T17:05:48" hostname="MacBook-Pro-2" time="0.922">
+<testsuite name="MainTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2019-12-24T17:17:11" hostname="MacBook-Pro-2" time="0.898">
   <properties/>
-  <testcase name="Solution for Part one()" classname="MainTest" time="0.338"/>
-  <testcase name="Solution for Part two()" classname="MainTest" time="0.584"/>
+  <testcase name="Solution for Part one()" classname="MainTest" time="0.304"/>
+  <testcase name="Solution for Part two()" classname="MainTest" time="0.594"/>
   <system-out><![CDATA[At Oxygen 232
 At Oxygen 232
 .###########.#####################.#####.
