@@ -7,7 +7,6 @@ enum class MovementCommand (val value:Number, val move:Position) {
     South(2L,Position(0,1)),
     East(4L,Position(1,0)),
     West(3L,Position(-1,0))
-
 }
 
 enum class StatusCode (val value:Number, val image:Char) {
