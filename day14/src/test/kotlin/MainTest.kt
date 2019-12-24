@@ -11,16 +11,16 @@ class MainTest {
                 "7 A, 1 C => 1 D\n" +
                 "7 A, 1 D => 1 E\n" +
                 "7 A, 1 E => 1 FUEL"
-        val result = createDataSet(data)
-        val resultForFuel = result.elementMap["FUEL"]
+        val elements = createElements(data)
+        val resultForFuel = elements[IngredientName("FUEL")]
 
         if (resultForFuel != null) {
-            assertEquals("FUEL", resultForFuel.name)
+            assertEquals("FUEL", resultForFuel.name.value)
             assertEquals(1, resultForFuel.amount)
-            assertEquals("A",resultForFuel.createdFrom[0].name)
-            assertEquals(7,resultForFuel.createdFrom[0].amount)
-            assertEquals("E",resultForFuel.createdFrom[1].name)
-            assertEquals(1,resultForFuel.createdFrom[1].amount)
+            assertEquals("A",resultForFuel.ingredients[0].name.value)
+            assertEquals(7,resultForFuel.ingredients[0].amount)
+            assertEquals("E",resultForFuel.ingredients[1].name.value)
+            assertEquals(1,resultForFuel.ingredients[1].amount)
         } else {
             assertTrue(false)
         }
@@ -34,8 +34,9 @@ class MainTest {
                 "7 A, 1 C => 1 D\n" +
                 "7 A, 1 D => 1 E\n" +
                 "7 A, 1 E => 1 FUEL"
-        val fuelCalculator = createDataSet(data)
-        val result = fuelCalculator.calculateOreToMakeNumberOfElement("FUEL",1)
+        val fuelCalculator = FuelCalculator(  createElements(data))
+
+        val result = fuelCalculator.calcOreRequired(IngredientName("FUEL"),1)
         assertEquals(31,result)
     }
     @Test
@@ -47,8 +48,9 @@ class MainTest {
                 "5 B, 7 C => 1 BC\n" +
                 "4 C, 1 A => 1 CA\n" +
                 "2 AB, 3 BC, 4 CA => 1 FUEL"
-        val fuelCalculator = createDataSet(data)
-        val result = fuelCalculator.calculateOreToMakeNumberOfElement("FUEL",1)
+        val fuelCalculator = FuelCalculator(  createElements(data))
+
+        val result = fuelCalculator.calcOreRequired(IngredientName("FUEL"),1)
         assertEquals(165,result)
     }
     @Test
@@ -62,8 +64,8 @@ class MainTest {
                 "7 DCFZ, 7 PSHF => 2 XJWVT\n" +
                 "165 ORE => 2 GPVTF\n" +
                 "3 DCFZ, 7 NZVS, 5 HKGWZ, 10 PSHF => 8 KHKGT"
-        val fuelCalculator = createDataSet(data)
-        val result =fuelCalculator.calculateOreToMakeNumberOfElement("FUEL",1)
+        val fuelCalculator = FuelCalculator(  createElements(data))
+        val result = fuelCalculator.calcOreRequired(IngredientName("FUEL"),1)
         assertEquals(13312,result)
     }
     @Test
@@ -80,8 +82,8 @@ class MainTest {
                 "1 NVRVD => 8 CXFTF\n" +
                 "1 VJHF, 6 MNCFX => 4 RFSQX\n" +
                 "176 ORE => 6 VJHF"
-        val fuelCalculator = createDataSet(data)
-        val result = fuelCalculator.calculateOreToMakeNumberOfElement("FUEL",1)
+        val fuelCalculator = FuelCalculator(  createElements(data))
+        val result = fuelCalculator.calcOreRequired(IngredientName("FUEL"),1)
         assertEquals(180697,result)
     }
     @Test
@@ -103,24 +105,24 @@ class MainTest {
                 "121 ORE => 7 VRPVC\n" +
                 "7 XCVML => 6 RJRHP\n" +
                 "5 BHXH, 4 VRPVC => 5 LTCX"
-        val fuelCalculator = createDataSet(data)
-        val result = fuelCalculator.calculateOreToMakeNumberOfElement("FUEL",1)
+        val fuelCalculator = FuelCalculator(  createElements(data))
+        val result = fuelCalculator.calcOreRequired(IngredientName("FUEL"),1)
         assertEquals(2210736,result)
     }
 
 
     @Test
     fun `Day 14 part one`() {
-        val fuelCalculator = createDataSet(data)
-        val result  = fuelCalculator.calculateOreToMakeNumberOfElement("FUEL",1)
+        val fuelCalculator = FuelCalculator(  createElements(data))
+        val result = fuelCalculator.calcOreRequired(IngredientName("FUEL"),1)
         assertEquals(843220, result)
     }
 
     @Test
     fun `Day 14  part two`() {
-        val fuelCalculator = createDataSet(data)
+        val fuelCalculator = FuelCalculator(  createElements(data))
         //Done by trial and error!
-        val result  = fuelCalculator.calculateOreToMakeNumberOfElement("FUEL",2169535)
+        val result = fuelCalculator.calcOreRequired(IngredientName("FUEL"),2169535)
         println(result)
     }
 

@@ -1,91 +1,68 @@
-import kotlin.math.absoluteValue
-import kotlin.math.floor
+import kotlin.math.ceil //rounds a double up to the nearest integer
 
-fun String.toIngredient() = Ingredient(split(" ").last(),split(" ").first().toLong())
+inline class IngredientName(val value:String)
 
-fun createDataSet(data: String): FuelCalculator {
+open class Ingredient(val name:IngredientName, val amount:Long)
+
+class Element(name:IngredientName, amount:Long, val ingredients:List<Ingredient>):Ingredient(name, amount  )
+
+fun String.toIngredient() = Ingredient( IngredientName(  split(" ").last()),  split(" ").first().toLong())
+
+fun createElements(data: String): Map<IngredientName, Element> {
     val inputData = data.split("\n")
-    val elementMap = mutableMapOf<String, Element>()
+    val elementMap = mutableMapOf<IngredientName, Element>()
 
-    inputData. forEach {
-        val produced = it.split(" => ").last().toIngredient()
-        val ingredients = it.split(" => ").first().split(", ").map{it.toIngredient()}
+    inputData. forEach { dataRow ->
+        val produced = dataRow.split(" => ").last().toIngredient()
+        val ingredients = dataRow.split(" => ").first().split(", ").map{it.toIngredient()}
         elementMap[produced.name] =  Element(produced.name, produced.amount, ingredients)
     }
-    return FuelCalculator(elementMap)
+    return elementMap
 }
 
-class FuelCalculator(val elementMap:Map<String, Element>) {
+class FuelCalculator(private val elementMap:Map<IngredientName, Element>) {
 
-    val surplus: MutableMap<String, Long> = mutableMapOf()
+    private val elementBank: MutableMap<IngredientName, Long> = mutableMapOf()
 
-    fun calculateOreToMakeNumberOfElement(name: String, amount: Long): Long {
+    fun calcOreRequired(elementName: IngredientName, elementAmount: Long): Long {
 
-        var oreNeeded = 0L
+        var oreRequired = 0L
 
-        if (name == "ORE") {
-            oreNeeded = amount
+        if (elementName.value == "ORE") {
+            oreRequired = elementAmount
         } else {
-            val currentElement: Element = elementMap[name]!!
-            val createdByList: List<Ingredient> = currentElement.createdFrom
+            val currentElement: Element = elementMap[elementName] ?: Element(IngredientName(""),0, listOf())
+            val ingredients: List<Ingredient> = currentElement.ingredients
 
-            createdByList.forEach {ingredient ->
+            ingredients.forEach { ingredient ->
 
-                val currentSurplus =  surplus[ingredient.name] ?: 0
+                val surplusForIngredient =  elementBank[ingredient.name] ?: 0
 
-                var amountOfThisNeeded = (ingredient.amount * amount) - currentSurplus
-                if (amountOfThisNeeded <= 0) {
-                    surplus[ingredient.name] = amountOfThisNeeded.absoluteValue
-                    amountOfThisNeeded = 0
-                } else
-                    surplus[ingredient.name] = 0
+                var amountOfIngredientRequired = ingredient.amount * elementAmount
 
-                val nextElement = elementMap[ingredient.name]
-                val nextAmount: Long
-                val nextSurplus: Long
-
-                if (nextElement != null) {
-
-                    if ((amountOfThisNeeded).rem(nextElement.amount) > 0) {
-                        nextAmount = floor(((amountOfThisNeeded) / nextElement.amount).toDouble()).toLong() + 1
-                        nextSurplus = nextAmount * nextElement.amount - amountOfThisNeeded
-                        surplus[ingredient.name] = (surplus[ingredient.name] ?: 0) + nextSurplus
-                    } else {
-                        nextAmount = amountOfThisNeeded / nextElement.amount
-                        nextSurplus = nextAmount * nextElement.amount - amountOfThisNeeded
-                        surplus[ingredient.name] = (surplus[ingredient.name] ?: 0) + nextSurplus
-                    }
+                if (amountOfIngredientRequired > surplusForIngredient) {
+                    elementBank[ingredient.name] = 0
+                    amountOfIngredientRequired -= surplusForIngredient
                 } else {
-                    // then next recursive call will be for an ORE.
-                    nextAmount = amountOfThisNeeded
+                    elementBank[ingredient.name] = surplusForIngredient - amountOfIngredientRequired
+                    amountOfIngredientRequired = 0
                 }
 
-                if (amountOfThisNeeded == 0L) {
-                    oreNeeded += calculateOreToMakeNumberOfElement(ingredient.name, 0)
-                } else {
-                    oreNeeded += calculateOreToMakeNumberOfElement(ingredient.name, nextAmount)
+                if (amountOfIngredientRequired > 0L) {
+                    val elementForIngredient = elementMap[ingredient.name] ?: Element(IngredientName("ORE"),0, listOf())
+
+                    if (elementForIngredient.name.value != "ORE") {
+                        val amountToRequest = ceil((1.0 * amountOfIngredientRequired / elementForIngredient.amount)).toLong()
+                        val surplusAmount = amountToRequest * elementForIngredient.amount - amountOfIngredientRequired
+                        elementBank[ingredient.name] = (elementBank[ingredient.name] ?: 0) + surplusAmount
+                        oreRequired += calcOreRequired(ingredient.name, amountToRequest)
+                    } else {
+                        oreRequired += calcOreRequired(ingredient.name, amountOfIngredientRequired)
+                    }
+
                 }
             }
         }
-        return oreNeeded
+        return oreRequired
     }
-
-    fun totalFuelFromOre(totalOre: Long): Long {
-        var totalFuel = 0
-        var currentOreUsage: Long = 0
-
-        while (currentOreUsage <= totalOre) {
-            currentOreUsage += calculateOreToMakeNumberOfElement("FUEL", 1)
-            totalFuel++
-            println(currentOreUsage)
-        }
-        return totalFuel - 1L
-    }
-
-
-
 }
-
-open class Ingredient(val name:String, val amount:Long)
-
-class Element(name:String, amount:Long, val createdFrom:List<Ingredient>):Ingredient(name, amount  )
