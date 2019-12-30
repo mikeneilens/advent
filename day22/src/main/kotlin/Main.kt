@@ -56,13 +56,11 @@ fun List<String>.createDeckShufflers():List<DeckShuffler> = mapNotNull{
 
 fun String.toListOfString() = split("\n")
 
-fun dayOne(data:String, deck:Deck):Deck {
-    val instructionsText = data.toListOfString()
-    val deckShufflers = instructionsText.createDeckShufflers()
-    return  deckShufflers.fold(deck){ latestDeck, deckShuffler ->
-        deckShuffler(latestDeck)
-    }
-}
+fun dayOne(data:String, deck:Deck):Deck
+        = data.toListOfString()
+            .createDeckShufflers()
+            .fold(deck){ latestDeck, deckShuffler -> deckShuffler(latestDeck) }
+
 
 fun String.isDealIntoNewStack():Boolean  = contains(Regex("deal into new stack"))
 fun String.isDealWithIncrement():Boolean  = contains(Regex("deal with increment"))
