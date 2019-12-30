@@ -34,11 +34,9 @@ val cutNCards = fun(deck:Deck, n:Int):Deck {
 
 val dealWithIncrementN = fun(deck:Deck,n:Int):Deck {
     val newDeck:MutableDeck = mutableMapOf()
-    var newSequence = 0
-    deck.keys.sorted().forEach{sequenceNo ->
+    deck.keys.sorted().forEachIndexed{ndx, sequenceNo ->
+        val newSequence = (ndx * n) % deck.size
         deck[sequenceNo]?.let{ newDeck[newSequence] = it}
-        newSequence += n
-        newSequence %= deck.size
     }
     return newDeck
 }

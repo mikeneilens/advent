@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MainTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2019-12-30T21:42:17" hostname="MacBook-Pro-2" time="0.263">
+<testsuite name="MainTest" tests="13" skipped="0" failures="0" errors="0" timestamp="2019-12-30T21:45:12" hostname="MacBook-Pro-2" time="0.312">
   <properties/>
-  <testcase name="shuffle using sample 2 of shuffle instructions()" classname="MainTest" time="0.052"/>
-  <testcase name="shuffle using sample 4 of shuffle instructions()" classname="MainTest" time="0.002"/>
-  <testcase name="isDealWithIncrement is true if string contains correct text()" classname="MainTest" time="0.002"/>
-  <testcase name="cut positive number()" classname="MainTest" time="0.001"/>
-  <testcase name="day 20 part one()" classname="MainTest" time="0.2"/>
-  <testcase name="cut negative number()" classname="MainTest" time="0.0"/>
-  <testcase name="isCut is true if string contains correct text()" classname="MainTest" time="0.001"/>
+  <testcase name="shuffle using sample 2 of shuffle instructions()" classname="MainTest" time="0.043"/>
+  <testcase name="shuffle using sample 4 of shuffle instructions()" classname="MainTest" time="0.001"/>
+  <testcase name="isDealWithIncrement is true if string contains correct text()" classname="MainTest" time="0.001"/>
+  <testcase name="cut positive number()" classname="MainTest" time="0.0"/>
+  <testcase name="day 20 part one()" classname="MainTest" time="0.253"/>
+  <testcase name="cut negative number()" classname="MainTest" time="0.001"/>
+  <testcase name="isCut is true if string contains correct text()" classname="MainTest" time="0.0"/>
   <testcase name="lastValue return last value embedded in a string()" classname="MainTest" time="0.001"/>
-  <testcase name="Deal with increment()" classname="MainTest" time="0.0"/>
-  <testcase name="isDealIntoNewStack is true if string contains correct text()" classname="MainTest" time="0.0"/>
+  <testcase name="Deal with increment()" classname="MainTest" time="0.001"/>
+  <testcase name="isDealIntoNewStack is true if string contains correct text()" classname="MainTest" time="0.001"/>
   <testcase name="shuffle using sample 1 of shuffle instructions()" classname="MainTest" time="0.001"/>
   <testcase name="shuffle using sample 3 of shuffle instructions()" classname="MainTest" time="0.001"/>
-  <testcase name="reversing a deck()" classname="MainTest" time="0.0"/>
+  <testcase name="reversing a deck()" classname="MainTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
