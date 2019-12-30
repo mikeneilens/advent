@@ -5,7 +5,7 @@ class MainTest {
     @Test
     fun `reversing a deck`() {
         val deck = createDeck(0..9)
-        val reversedDeck = reverse(deck)
+        val reversedDeck = dealIntoNewStack(deck)
         assertEquals(Card(9), reversedDeck[0])
         assertEquals(Card(8), reversedDeck[1])
         assertEquals(Card(0), reversedDeck[9])
@@ -91,8 +91,8 @@ class MainTest {
     }
     @Test
     fun `lastValue return last value embedded in a string`() {
-        assertEquals(6, "deal with increment 6".lastValue())
-        assertEquals(-4, "cut -4".lastValue())
+        assertEquals(6, "deal with increment 6".valueForN())
+        assertEquals(-4, "cut -4".valueForN())
     }
     @Test
     fun `shuffle using sample 1 of shuffle instructions`() {
