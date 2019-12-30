@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="MainTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2019-12-30T15:39:56" hostname="MacBook-Pro-2" time="0.161">
+  <properties/>
+  <testcase name="find solution for part one()" classname="MainTest" time="0.137"/>
+  <testcase name="finding shortest route with sample two data()" classname="MainTest" time="0.005"/>
+  <testcase name="map of char is converted to a map of content correctly()" classname="MainTest" time="0.011"/>
+  <testcase name="finding shortest route with sample one data()" classname="MainTest" time="0.001"/>
+  <testcase name="Parse data into a simple map of chars using sample one data()" classname="MainTest" time="0.001"/>
+  <testcase name="list of portal exit is found correctly()" classname="MainTest" time="0.0"/>
+  <testcase name="list of portals is created correctly using sample one data()" classname="MainTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
