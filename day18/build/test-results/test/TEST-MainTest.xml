@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="MainTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2019-12-31T16:04:37" hostname="MacBook-Pro-2" time="0.043">
+  <properties/>
+  <testcase name="data from sample one is turned into a map of data()" classname="MainTest" time="0.024"/>
+  <testcase name="adjacent paths are calculated correctly()" classname="MainTest" time="0.004"/>
+  <testcase name="map of data is converted to a map of paths()" classname="MainTest" time="0.013"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
