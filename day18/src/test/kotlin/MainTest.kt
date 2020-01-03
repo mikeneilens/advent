@@ -64,4 +64,58 @@ class MainTest {
         assertTrue( pathAt31 is Path.BigLetter && pathAt31.letter == 'A')
         assertTrue( pathAt31 is Path.BigLetter && pathAt31.adjacentPaths == listOf(Position(2,1),Position(4,1)))
     }
+    @Test
+    fun `find shortest steps for first sample`() {
+        val data =
+                "#########\n" +
+                "#b.A.@.a#\n" +
+                "#########"
+        val mapOfPaths = data.toMapOfData().toMapOfPaths()
+        val steps = mapOfPaths.findStepsToEnd()
+        assertEquals(8, steps)
+    }
+    @Test
+    fun `find shortest steps for sample 2`() {
+        val data =
+                "########################\n" +
+                "#f.D.E.e.C.b.A.@.a.B.c.#\n" +
+                "######################.#\n" +
+                "#d.....................#\n" +
+                "########################\n"
+
+        val mapOfPaths = data.toMapOfData().toMapOfPaths()
+        val steps = mapOfPaths.findStepsToEnd()
+        assertEquals(86, steps)
+    }
+    @Test
+    fun `find shortest steps for sample 3`() {
+        val data =
+                "########################\n" +
+                "#...............b.C.D.f#\n" +
+                "#.######################\n" +
+                "#.....@.a.B.c.d.A.e.F.g#\n" +
+                "########################"
+
+        val mapOfPaths = data.toMapOfData().toMapOfPaths()
+        val steps = mapOfPaths.findStepsToEnd()
+        assertEquals(132, steps)
+    }
+    @Test
+    fun `find shortest steps for sample 4`() {
+        val data =
+                "#################\n" +
+                "#i.G..c...e..H.p#\n" +
+                "########.########\n" +
+                "#j.A..b...f..D.o#\n" +
+                "########@########\n" +
+                "#k.E..a...g..B.n#\n" +
+                "########.########\n" +
+                "#l.F..d...h..C.m#\n" +
+                "#################"
+
+        val mapOfPaths = data.toMapOfData().toMapOfPaths()
+        val steps = mapOfPaths.findStepsToEnd()
+        assertEquals(136, steps)
+    }
+
 }
